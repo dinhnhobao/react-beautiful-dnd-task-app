@@ -133,6 +133,18 @@ class App extends React.Component {
           </Droppable>
         </DragDropContext>
         {CONSTANT}
+
+        <div>
+          Scroll bar:
+          <select id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+          </select>
+          <br></br>
+          <br></br>
+        </div>
       </div>
     );
   }
