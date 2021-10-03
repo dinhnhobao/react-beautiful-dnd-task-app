@@ -97,38 +97,43 @@ class App extends React.Component {
       },
     };
     this.setState(newState);
+    console.log(newState);
   };
 
   render() {
+    const CONSTANT = 1;
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable
-          droppableId="all-columns"
-          direction="horizontal"
-          type="column"
-        >
-          {provided => (
-            <Container
-              {...provided.droppableProps}
-              innerRef={provided.innerRef}
-            >
-              {this.state.columnOrder.map((columnId, index) => {
-                const column = this.state.columns[columnId];
+      <div>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable
+            droppableId="all-columns"
+            direction="horizontal"
+            type="column"
+          >
+            {provided => (
+              <Container
+                {...provided.droppableProps}
+                innerRef={provided.innerRef}
+              >
+                {this.state.columnOrder.map((columnId, index) => {
+                  const column = this.state.columns[columnId];
 
-                return (
-                  <InnerList
-                    key={column.id}
-                    column={column}
-                    index={index}
-                    taskMap={this.state.tasks}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
+                  return (
+                    <InnerList
+                      key={column.id}
+                      column={column}
+                      index={index}
+                      taskMap={this.state.tasks}
+                    />
+                  );
+                })}
+                {provided.placeholder}
+              </Container>
+            )}
+          </Droppable>
+        </DragDropContext>
+        {CONSTANT}
+      </div>
     );
   }
 }
