@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@atlaskit/css-reset';
 import styled from 'styled-components';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import initialData from './initial-data';
 import Column from './column';
 
+import Increment from './components/Increment';
+import FunctionDeclaration from './components/FunctionDeclaration';
+
 const Container = styled.div`
   display: flex;
+  font: Consolas;
 `;
 
 class InnerList extends React.PureComponent {
@@ -96,6 +100,8 @@ class App extends React.Component {
         [newForeign.id]: newForeign,
       },
     };
+    console.log("Old state");
+    console.log(this.state);
     this.setState(newState);
     console.log(newState);
   };
@@ -103,7 +109,7 @@ class App extends React.Component {
   render() {
     const CONSTANT = 1;
     return (
-      <div>
+      <div style={{ fontFamily: 'Courier New', input: 'Courier New' }}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="all-columns"
@@ -132,18 +138,15 @@ class App extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
-        {CONSTANT}
 
         <div>
-          Scroll bar:
-          <select id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="opel">Opel</option>
-            <option value="audi">Audi</option>
-          </select>
+          <Increment variables={['x', 'y', 'foo']} operations={["+=", "-=", "*=", "/="]} num={0} is_block_view={true}></Increment> {/* 0 not modifiable, length of variable name affects */}
           <br></br>
+          <Increment variables={['x', 'y', 'foo']} operations={["+=", "-=", "*=", "/="]} num={0}></Increment> {/* 0 not modifiable */}
           <br></br>
+          <Increment variables={['x', 'y', 'foo']} operations={["<", ">", "<=", ">=", "==", "!="]} num={0} is_block_view={true}></Increment>
+          <br></br>
+          <FunctionDeclaration function_name={'factorial'} inputs={['n, i, a']}></FunctionDeclaration>
         </div>
       </div>
     );

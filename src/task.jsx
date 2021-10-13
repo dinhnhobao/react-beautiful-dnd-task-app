@@ -22,6 +22,7 @@ export default class Task extends React.Component {
             isDragging={snapshot.isDragging}
           >
             {this.props.task.content}
+            {/* <input type="text" id="fname" name="fname" /><br></br> */}
           </Container>
         )}
       </Draggable>
