@@ -8,7 +8,7 @@ import Column from './column';
 
 import Increment from './components/Increment';
 import FunctionDeclaration from './components/FunctionDeclaration';
-
+import Test from './test';
 const Container = styled.div`
   display: flex;
   font: Consolas;
@@ -110,43 +110,8 @@ class App extends React.Component {
     const CONSTANT = 1;
     return (
       <div style={{ fontFamily: 'Courier New', input: 'Courier New' }}>
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable
-            droppableId="all-columns"
-            direction="horizontal"
-            type="column"
-          >
-            {provided => (
-              <Container
-                {...provided.droppableProps}
-                innerRef={provided.innerRef}
-              >
-                {this.state.columnOrder.map((columnId, index) => {
-                  const column = this.state.columns[columnId];
-
-                  return (
-                    <InnerList
-                      key={column.id}
-                      column={column}
-                      index={index}
-                      taskMap={this.state.tasks}
-                    />
-                  );
-                })}
-                {provided.placeholder}
-              </Container>
-            )}
-          </Droppable>
-        </DragDropContext>
-
         <div>
-          <Increment variables={['x', 'y', 'foo']} operations={["+=", "-=", "*=", "/="]} num={0} is_block_view={true}></Increment> {/* 0 not modifiable, length of variable name affects */}
-          <br></br>
-          <Increment variables={['x', 'y', 'foo']} operations={["+=", "-=", "*=", "/="]} num={0}></Increment> {/* 0 not modifiable */}
-          <br></br>
-          <Increment variables={['x', 'y', 'foo']} operations={["<", ">", "<=", ">=", "==", "!="]} num={0} is_block_view={true}></Increment>
-          <br></br>
-          <FunctionDeclaration function_name={'factorial'} inputs={['n, i, a']}></FunctionDeclaration>
+          <Test></Test>
         </div>
       </div>
     );
