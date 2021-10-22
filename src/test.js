@@ -13,34 +13,9 @@ const items = [
     { id: 3, text: 'Lisa' }
 ];
 
-const handleClick = (e, item) => {
-    // e.stopPropagation(); // this may be needed if you dont use drag handler
-    console.log("direct click!", item);
-};
 
-const handleDelete = (e, item) => {
-    const DELETE = "46";
-    const BACKSPACE = "8";
-    if (e.which == BACKSPACE || e.which == DELETE) { //
-        console.log("Delete button pressed");
-    }
-};
-
-
-
-
-const renderItem = ({ item, handler }) =>
-    <div>
-        {handler}
-        {/* <div onClick={e => handleClick(e, item)}>
-            1
-        </div> */}
-        <div tabindex="0" onKeyDown={(e) => handleDelete(e, item)}> {/* listen for keyboard events */}
-            1
-        </div>
-        {item.text}
-    </div >;
 export default class Test extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -58,15 +33,74 @@ export default class Test extends React.Component {
         console.log(this.state);
     }
 
-    onDragEnd = (items) => {
+    onDragEnd = (items, item, path) => {
+        console.log(`${item} ${path}`);
         console.log(items);
         const newItems = JSON.parse(JSON.stringify(items));
         this.setState(newItems);
         console.log(newItems);
     }
 
-    onTrash = () => {
-        console.log("Trash hovered");
+    renderItem = ({ item, handler }) =>
+        <div>
+            {handler}
+            {/* <div onClick={e => handleClick(e, item)}>
+            1
+        </div> */}
+            <div tabIndex="0" onKeyDown={(e) => this.handleDelete(e, item)}> {/* listen for keyboard events */}
+                1
+            </div>
+            {item.text}
+        </div >;
+
+    handleDelete = (e, item) => {
+        const DELETE = "46";
+        const BACKSPACE = "8";
+        if (e.which == BACKSPACE || e.which == DELETE) { //
+            console.log("Delete button pressed");
+            this.removeItem(item);
+        }
+    };
+
+    removeItem = (item) => {
+        console.log(`${JSON.stringify(item)} deleting`);
+
+        const newItems = JSON.parse(JSON.stringify(this.state.items));
+        console.log(this.globalRemove(newItems, item["id"]) === true);
+
+        console.log(newItems);
+
+        this.setState({ items: newItems, i: this.state.i + 1 });
+    }
+
+    globalRemove = (list, id) => {
+        /* removes the element from list */
+
+        // console.log(`called with ${JSON.stringify(list)} ${id} ${typeof id}`);
+        // console.log(list[1]["id"] === id);
+        // console.log(id);
+        // console.log(list[2]["id"] === id.toString());
+        if (list === undefined) {
+            return false;
+        }
+
+        // console.log(`called with ${JSON.stringify(newItems)} ${id}`)
+        for (let i = 0; i < list.length; i++) {
+            // console.log(`${newItems[i]["id"] === id} ${newItems[i]["id"]} ${id}`)
+            if (list[i]["id"] === id) { // found
+                list.splice(i, 1); // modify newItems
+                console.log(`Found!`);
+                return true;
+                // outer one remove -> what is the behaviour of inner?
+            }
+
+            // console.log(list[i].hasOwnProperty("children"));
+
+            if (list[i].hasOwnProperty("children") && this.globalRemove(list[i]["children"], id)) {
+                return true;
+            }
+        }
+        return false;
     }
     render() {
         return (
@@ -76,14 +110,10 @@ export default class Test extends React.Component {
                 </button>
                 <Nestable
                     items={this.state.items}
-                    renderItem={renderItem}
+                    renderItem={this.renderItem}
                     onChange={this.onDragEnd}
                 />
 
-                <Nestable
-                    items={[{ id: 1, text: 'Trash' }]}
-                    renderItem={renderItem}
-                />
             </div >
         );
     }
