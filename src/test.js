@@ -33,6 +33,14 @@ export default class Test extends React.Component {
         this.setState({ items: newItems, i: this.state.i + 1 });
         console.log(this.state);
     }
+
+    onDragEnd = (items) => {
+        console.log(items);
+        const newItems = JSON.parse(JSON.stringify(items));
+        this.setState(newItems);
+        console.log(newItems);
+    }
+
     render() {
         return (
             <div>
@@ -42,6 +50,7 @@ export default class Test extends React.Component {
                 <Nestable
                     items={this.state.items}
                     renderItem={renderItem}
+                    onChange={this.onDragEnd}
                 />
             </div>
         );
