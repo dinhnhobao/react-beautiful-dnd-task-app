@@ -1,0 +1,6 @@
+.input-field {
+    display: inline-block;
+    border: solid 1px black;
+    min-width: 10px; 
+    max-width: 200px
+}

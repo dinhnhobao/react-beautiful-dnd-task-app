@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import './app.css';
 const items = [
     { id: 0 },
     {
@@ -99,10 +100,17 @@ export default class Test extends React.Component {
         switch (fields["type"]) {
             case 0: // +=
                 return <div>
-                    <input type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                    <span contentEditable="true"
+                        className="input-field"
+                        value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
+                    </span>
+                    {/* // <input type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input> */}
                     +=
-                    <input type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}></input>
-                </div>
+                    <span contentEditable="true"
+                        className="input-field"
+                        value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
+                    </span>
+                </div >
                 break;
         }
     }
