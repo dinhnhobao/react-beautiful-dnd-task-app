@@ -4,3 +4,7 @@
     min-width: 10px; 
     max-width: 200px
 }
+
+select {
+    appearance: none;
+}
