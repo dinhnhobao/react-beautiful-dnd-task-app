@@ -3,14 +3,14 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 const items = [
-    { id: 0, text: 'Andy' },
+    { id: 0 },
     {
-        id: 1, text: 'Harry',
+        id: 1,
         children: [
-            { id: 2, text: 'David' }
+            { id: 2 }
         ]
     },
-    { id: 3, text: 'Lisa' }
+    { id: 3 }
 ];
 
 
@@ -57,7 +57,7 @@ export default class Test extends React.Component {
     onClickFunc = () => {
         const newItems = [...this.state.items];
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
-        newItems.push({ id: this.state.i, text: `index ${this.state.i}` });
+        newItems.push({ id: this.state.i });
         newInputs[this.state.i] = {
             type: 0,
             input1: "x",
@@ -80,8 +80,6 @@ export default class Test extends React.Component {
 
     renderItem = ({ item }) =>
         <div tabIndex="0" onKeyDown={(e) => this.handleDelete(e, item)}>
-            {item.text}
-
             {this.getInputField(item.id)}
         </div >;
 
