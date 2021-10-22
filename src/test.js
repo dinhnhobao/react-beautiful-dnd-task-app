@@ -66,27 +66,21 @@ export default class Test extends React.Component {
         console.log(`${JSON.stringify(item)} deleting`);
 
         const newItems = JSON.parse(JSON.stringify(this.state.items));
-        console.log(this.globalRemove(newItems, item["id"]) === true);
+        console.log(this.removeSearch(newItems, item["id"]) === true);
 
         console.log(newItems);
 
         this.setState({ items: newItems, i: this.state.i + 1 });
     }
 
-    globalRemove = (list, id) => {
+    removeSearch = (list, id) => {
         /* removes the element from list */
 
-        // console.log(`called with ${JSON.stringify(list)} ${id} ${typeof id}`);
-        // console.log(list[1]["id"] === id);
-        // console.log(id);
-        // console.log(list[2]["id"] === id.toString());
         if (list === undefined) {
             return false;
         }
 
-        // console.log(`called with ${JSON.stringify(newItems)} ${id}`)
         for (let i = 0; i < list.length; i++) {
-            // console.log(`${newItems[i]["id"] === id} ${newItems[i]["id"]} ${id}`)
             if (list[i]["id"] === id) { // found
                 list.splice(i, 1); // modify newItems
                 console.log(`Found!`);
@@ -94,14 +88,13 @@ export default class Test extends React.Component {
                 // outer one remove -> what is the behaviour of inner?
             }
 
-            // console.log(list[i].hasOwnProperty("children"));
-
-            if (list[i].hasOwnProperty("children") && this.globalRemove(list[i]["children"], id)) {
+            if (list[i].hasOwnProperty("children") && this.removeSearch(list[i]["children"], id)) {
                 return true;
             }
         }
         return false;
     }
+
     render() {
         return (
             <div>
