@@ -41,15 +41,8 @@ export default class Test extends React.Component {
         console.log(newItems);
     }
 
-    renderItem = ({ item, handler }) =>
-        <div>
-            {handler}
-            {/* <div onClick={e => handleClick(e, item)}>
-            1
-        </div> */}
-            <div tabIndex="0" onKeyDown={(e) => this.handleDelete(e, item)}> {/* listen for keyboard events */}
-                1
-            </div>
+    renderItem = ({ item }) =>
+        <div tabIndex="0" onKeyDown={(e) => this.handleDelete(e, item)}>
             {item.text}
         </div >;
 
