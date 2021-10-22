@@ -14,6 +14,11 @@ const items = [
     { id: 3 }
 ];
 
+const generateOptions = (operators, block_id) => {
+    return operators.map((operator, index) => (
+        <option id={operator} value={operator} style={{ fontFamily: 'Courier New' }}>{operator}</option>
+    ));
+}
 
 export default class Test extends React.Component {
 
@@ -26,21 +31,25 @@ export default class Test extends React.Component {
                     type: 0,
                     input1: "x",
                     input2: "1",
+                    operator: "+=",
                 },
                 1: {
-                    type: 0,
+                    type: 1,
                     input1: "x",
                     input2: "1",
+                    operator: "<=",
                 },
                 2: {
                     type: 0,
                     input1: "x",
                     input2: "1",
+                    operator: "+=",
                 },
                 3: {
-                    type: 0,
+                    type: 1,
                     input1: "x",
                     input2: "1",
+                    operator: ">",
                 }
             }, // array of tokens
             i: 5
@@ -98,27 +107,44 @@ export default class Test extends React.Component {
         operator, operand, operand
         */
         switch (fields["type"]) {
-            case 0: // +=
+            case 0: // +=, -=, *=, /=
+                const INC_OPERATORS = ['+=', '-=', '*=', '/='];
                 return <div>
                     <span contentEditable="true"
                         className="input-field"
                         value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
                     </span>
                     {/* // <input type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input> */}
-                    +=
+                    <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
+                        {generateOptions(INC_OPERATORS, id)}
+                    </select>
                     <span contentEditable="true"
                         className="input-field"
                         value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
                     </span>
-                </div >
-                break;
+                </div>
+            case 1: // <, <=, >, >=, !=, ==
+                const COMP_OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
+                return <div>
+                    <span contentEditable="true"
+                        className="input-field"
+                        value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
+                    </span>
+                    <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
+                        {generateOptions(COMP_OPERATORS, id)}
+                    </select>
+                    <span contentEditable="true"
+                        className="input-field"
+                        value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
+                    </span>
+                </div>
         }
     }
 
     handleDelete = (e, item) => {
         const DELETE = "46";
         const BACKSPACE = "8";
-        if (e.which == BACKSPACE || e.which == DELETE) { //
+        if (e.which === BACKSPACE || e.which === DELETE) { //
             console.log("Delete button pressed");
             this.removeItem(item);
         }
