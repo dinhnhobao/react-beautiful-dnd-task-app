@@ -4,13 +4,15 @@ import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
 const { TREE } = require('./constants');
-const { parseTree } = require('./parser');
+const { parseBlock, parseTree } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
     return operators.map((operator, index) => (
         <option id={operator + index} value={operator} style={{ fontFamily: 'Courier New' }}>{operator}</option>
     ));
 }
+
+const handlerStub = () => null;
 
 export default class Test extends React.Component {
 
@@ -20,7 +22,8 @@ export default class Test extends React.Component {
             items: TREE.items,
             inputs: TREE.inputs,
             i: TREE.items.length,
-            droppableData: ''
+            droppableData: '',
+            isChildDragging: false
         };
     }
 
@@ -49,7 +52,6 @@ export default class Test extends React.Component {
     onDragEnd = (items, item, path) => {
         const newItems = JSON.parse(JSON.stringify(items));
         this.setState(newItems);
-        console.log(newItems);
     }
 
     renderItem = ({ item }) =>
@@ -82,17 +84,14 @@ export default class Test extends React.Component {
         )
 
         switch (fields["type"]) {
-            case 0: case 1: case 5:
+            case 0: case 1:
                 var OPERATORS;
                 if (fields["type"] === 0) {
                     OPERATORS = ['+=', '-=', '*=', '/='];
                 } else if (fields["type"] === 1) {
                     OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
-                } else if (fields["type"] == 5) { // and, or
-                    OPERATORS = ['and', 'or'];
                 }
-
-                const options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                var options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
                 return (
@@ -103,6 +102,22 @@ export default class Test extends React.Component {
                         &nbsp;
                         {input2_div}
                     </div>
+                );
+            case 5: // or
+                var OPERATORS = ['and', 'or'];
+                var options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                    {generateOptions(OPERATORS, id)}
+                </select>
+
+                return (
+                    <div>
+                        <div onClick={(e) => { e.stopPropagation(); this.setState({ isChildDragging: true }) }} draggable onDragStart={(e) => this.onDragStart(e, id)} onDrag={(e) => this.onDrag(e)}>Drag</div>
+                        {input1_div}
+                        &nbsp;
+                        {options}
+                        &nbsp;
+                        {input2_div}
+                    </div >
                 );
             case 3:
                 return (
@@ -141,6 +156,12 @@ export default class Test extends React.Component {
                 return (
                     <div>
                         if&nbsp;({input1_div}):
+
+                        <div onDragOver={(e) => this.onDragOver(e)}
+                            onDrop={(e) => this.onDrop(e, id)}
+                        >
+                            Drop
+                        </div>
                     </div>
                 );
             case 8:
@@ -204,17 +225,32 @@ export default class Test extends React.Component {
     }
 
     onDragOver = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // allow element to drag over
     }
 
-    onDrop = (e, cat) => {
-        let id = e.dataTransfer.getData("id");
+    onDrop = (e, id) => {
+        let expression = e.dataTransfer.getData("condition");
+
+        const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
+        newInputs[id]["input1"] = expression;
         this.setState({
-            droppableData: id
+            inputs: newInputs
+        }, () => {
+            this.setState({ isChildDragging: false });
         });
     }
+
     onDragStart = (e, id) => {
-        e.dataTransfer.setData("id", id); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
+        console.log("Drag started");
+        e.dataTransfer.setData("condition", parseBlock(this.state.inputs[id])); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
+    }
+
+    onDrag = (e) => {
+        this.setState({ isChildDragging: false });
+    }
+
+    onDragExpressionEnd = (e) => {
+        this.setState({ isChildDragging: false });
     }
     render() {
         var tree = parseTree({
@@ -248,6 +284,7 @@ export default class Test extends React.Component {
                                 items={this.state.items}
                                 renderItem={this.renderItem}
                                 onChange={this.onDragEnd}
+                                handler={this.state.isChildDragging ? handlerStub : this.handler}
                             />
                         </div>
                     </div>
@@ -261,13 +298,12 @@ export default class Test extends React.Component {
                     </div>
                 </div>
 
-                <div draggable onDragStart={(e) => this.onDragStart(e, 1)}>Drag</div>
+                {/* <div draggable onDragStart={(e) => this.onDragStart(e, 1)} onDragEnd={(e) => this.onDragExpressionEnd(e)}>Drag</div>
                 <div onDragOver={(e) => this.onDragOver(e)}
                     onDrop={(e) => this.onDrop(e, "complete")}
-                >
-                    Droppable data = {this.state.droppableData}
-                </div>
-            </div >
+                > */}
+                {/* Droppable data = {this.state.droppableData} */}
+            </div>
         );
     }
 }
