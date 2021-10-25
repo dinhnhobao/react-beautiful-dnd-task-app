@@ -1,4 +1,4 @@
-import { FIRST } from './constants';
+const { TREE, BLOCK } = require('./constants');
 
 const parseBlock = ({ type, input1, input2, operator }) => {
     switch (type) {
@@ -9,7 +9,12 @@ const parseBlock = ({ type, input1, input2, operator }) => {
     };
 }
 
-const parseTree = ({ items, inputs, indent }) => {
+const parseTree = ({ items, inputs }) => {
+    return parseTreeHelper({ items, inputs, indent: 0 });
+}
+
+const parseTreeHelper = ({ items, inputs, indent }) => {
+    console.log(indent);
     if (items == undefined) {
         return [];
     }
@@ -24,7 +29,7 @@ const parseTree = ({ items, inputs, indent }) => {
             command: parseBlock(inputs[item['id'].toString()]),
         });
 
-        let childBlocks = parseTree({
+        let childBlocks = parseTreeHelper({
             items: items[i].children,
             inputs: inputs,
             indent: indent + 4
@@ -36,17 +41,7 @@ const parseTree = ({ items, inputs, indent }) => {
     return JSON.parse(JSON.stringify(result)); // deep copy
 }
 
-// console.log(parseBlock({
-//     type: 1,
-//     input1: "x",
-//     input2: "1",
-//     operator: "<=",
-// }));
+console.log(parseBlock(BLOCK));
+console.log(parseTree(TREE));
 
-
-console.log(parseTree({
-    items: FIRST.items,
-    inputs: FIRST.inputs,
-    indent: 0
-}))
 module.exports = { parseBlock }

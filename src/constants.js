@@ -1,4 +1,4 @@
-const FIRST = {
+const TREE = {
     items: [
         { id: 0 },
         {
@@ -60,4 +60,10 @@ const FIRST = {
     },
 }
 
-export default FIRST;
+const BLOCK = {
+    type: 1,
+    input1: "x",
+    input2: "1",
+    operator: "<=",
+}
+module.exports = { BLOCK, TREE }
