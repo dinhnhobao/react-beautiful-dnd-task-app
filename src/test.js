@@ -79,12 +79,14 @@ export default class Test extends React.Component {
         operator, operand, operand
         */
         switch (fields["type"]) {
-            case 0: case 1:
+            case 0: case 1: case 5:
                 var OPERATORS;
                 if (fields["type"] === 0) {
                     OPERATORS = ['+=', '-=', '*=', '/='];
                 } else if (fields["type"] === 1) {
                     OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
+                } else if (fields["type"] == 5) { // and, or
+                    OPERATORS = ['and', 'or'];
                 }
                 return (
                     <div>
