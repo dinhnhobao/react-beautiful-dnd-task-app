@@ -10,6 +10,8 @@ const parseBlock = ({ type, input1, input2, operator }) => {
             return `def ${input1}(${input2}):`;
         case 4:
             return `return ${input1}`
+        case 6:
+            return `for ${input1} in range(${input2}):`
     };
 }
 

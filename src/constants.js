@@ -17,6 +17,7 @@ const TREE = {
         { id: 7 },
         { id: 8 },
         { id: 9 },
+        { id: 10 }
     ],
     inputs: {
         0: {
@@ -74,6 +75,11 @@ const TREE = {
             input1: "x",
             input2: "y",
             operator: "and"
+        },
+        10: {
+            type: 6, // for i in range():
+            input1: "i",
+            input2: "1, n"
         }
     },
 }
