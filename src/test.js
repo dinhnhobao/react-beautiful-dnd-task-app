@@ -3,6 +3,9 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
+import Drag from './images/drag-flick.png';
+import Drop from './images/drop-here.png';
+
 const { TREE } = require('./constants');
 const { parseBlock, parseTree } = require('./parser');
 
@@ -111,12 +114,23 @@ export default class Test extends React.Component {
 
                 return (
                     <div>
-                        <div onClick={(e) => { e.stopPropagation(); this.setState({ isChildDragging: true }) }} draggable onDragStart={(e) => this.onDragStart(e, id)} onDrag={(e) => this.onDrag(e)}>Drag</div>
-                        {input1_div}
-                        &nbsp;
-                        {options}
-                        &nbsp;
-                        {input2_div}
+                        <div style={{ display: "inline-block" }}>
+                            {input1_div}
+                            &nbsp;
+                            {options}
+                            &nbsp;
+                            {input2_div}
+                        </div>
+                        <div draggable
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.setState({ isChildDragging: true })
+                            }}
+                            onDragStart={(e) => this.onDragStart(e, id)}
+                            onDrag={(e) => this.onDrag(e)}
+                            style={{ display: "inline-block" }}>
+                            <img src={Drag} width={15} height={15}></img>
+                        </div>
                     </div >
                 );
             case 3:
@@ -155,14 +169,16 @@ export default class Test extends React.Component {
             case 7:
                 return (
                     <div>
-                        if&nbsp;({input1_div}):
-
+                        <div style={{ display: 'inline-block' }}>
+                            if&nbsp;({input1_div}):
+                        </div>
                         <div onDragOver={(e) => this.onDragOver(e)}
                             onDrop={(e) => this.onDrop(e, id)}
+                            style={{ display: 'inline-block' }}
                         >
-                            Drop
+                            <img src={Drop} width={15} height={15}></img>
                         </div>
-                    </div>
+                    </div >
                 );
             case 8:
                 return (
