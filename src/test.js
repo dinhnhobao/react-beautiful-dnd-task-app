@@ -132,11 +132,27 @@ export default class Test extends React.Component {
             case 6: // for i in range
                 return (
                     <div>
-                        <div>
-                            for&nbsp;{input1_div}&nbsp;in&nbsp;range(
-                            {input2_div}
-                            ):
-                        </div>
+                        for&nbsp;{input1_div}&nbsp;in&nbsp;range(
+                        {input2_div}
+                        ):
+                    </div>
+                );
+            case 7:
+                return (
+                    <div>
+                        if&nbsp;({input1_div}):
+                    </div>
+                );
+            case 8:
+                return (
+                    <div>
+                        elif&nbsp;({input1_div}):
+                    </div>
+                );
+            case 9:
+                return (
+                    <div>
+                        else:
                     </div>
                 );
         }

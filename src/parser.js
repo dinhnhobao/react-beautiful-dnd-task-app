@@ -12,6 +12,12 @@ const parseBlock = ({ type, input1, input2, operator }) => {
             return `return ${input1}`
         case 6:
             return `for ${input1} in range(${input2}):`
+        case 7:
+            return `if (${input1}):`
+        case 8:
+            return `elif (${input1}):`
+        case 9:
+            return `else:`
     };
 }
 

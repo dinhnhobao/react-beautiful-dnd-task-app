@@ -17,7 +17,10 @@ const TREE = {
         { id: 7 },
         { id: 8 },
         { id: 9 },
-        { id: 10 }
+        { id: 10 },
+        { id: 11 },
+        { id: 12 },
+        { id: 13 }
     ],
     inputs: {
         0: {
@@ -80,6 +83,17 @@ const TREE = {
             type: 6, // for i in range():
             input1: "i",
             input2: "1, n"
+        },
+        11: {
+            type: 7, // if
+            input1: "condition",
+        },
+        12: {
+            type: 8, // elif
+            input1: "condition"
+        },
+        13: { // else
+            type: 9,
         }
     },
 }
