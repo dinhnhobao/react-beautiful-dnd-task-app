@@ -3,18 +3,7 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
-
-const items = [
-    { id: 0 },
-    {
-        id: 1,
-        children: [
-            { id: 2 }
-        ]
-    },
-    { id: 3 },
-    { id: 4 }
-];
+const { TREE } = require('./constants');
 
 const generateOptions = (operators, block_id) => {
     return operators.map((operator, index) => (
@@ -27,38 +16,8 @@ export default class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: items,
-            inputs: {
-                0: {
-                    type: 0,
-                    input1: "x",
-                    input2: "1",
-                    operator: "+=",
-                },
-                1: {
-                    type: 1,
-                    input1: "x",
-                    input2: "1",
-                    operator: "<=",
-                },
-                2: {
-                    type: 0,
-                    input1: "x",
-                    input2: "1",
-                    operator: "+=",
-                },
-                3: {
-                    type: 1,
-                    input1: "x",
-                    input2: "1",
-                    operator: ">",
-                },
-                4: {
-                    type: 2, // def 
-                    input1: "count",
-                    input2: "x,y,z"
-                }
-            }, // array of tokens
+            items: TREE.items,
+            inputs: TREE.inputs,
             i: 10
         };
     }
