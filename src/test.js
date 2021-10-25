@@ -11,12 +11,13 @@ const items = [
             { id: 2 }
         ]
     },
-    { id: 3 }
+    { id: 3 },
+    { id: 4 }
 ];
 
 const generateOptions = (operators, block_id) => {
     return operators.map((operator, index) => (
-        <option id={operator} value={operator} style={{ fontFamily: 'Courier New' }}>{operator}</option>
+        <option id={operator + index} value={operator} style={{ fontFamily: 'Courier New' }}>{operator}</option>
     ));
 }
 
@@ -50,9 +51,14 @@ export default class Test extends React.Component {
                     input1: "x",
                     input2: "1",
                     operator: ">",
+                },
+                4: {
+                    type: 2, // def 
+                    input1: "count",
+                    input2: "x,y,z"
                 }
             }, // array of tokens
-            i: 5
+            i: 10
         };
     }
 
@@ -60,7 +66,6 @@ export default class Test extends React.Component {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
         this.setState({ inputs: newInputs });
-
         console.log(newInputs);
     }
 
@@ -81,8 +86,6 @@ export default class Test extends React.Component {
     }
 
     onDragEnd = (items, item, path) => {
-        // console.log(`${item} ${path}`);
-        console.log(items);
         const newItems = JSON.parse(JSON.stringify(items));
         this.setState(newItems);
         console.log(newItems);
@@ -109,35 +112,53 @@ export default class Test extends React.Component {
         switch (fields["type"]) {
             case 0: // +=, -=, *=, /=
                 const INC_OPERATORS = ['+=', '-=', '*=', '/='];
-                return <div>
-                    <span contentEditable="true"
-                        className="input-field"
-                        value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
-                    </span>
-                    {/* // <input type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input> */}
-                    <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
-                        {generateOptions(INC_OPERATORS, id)}
-                    </select>
-                    <span contentEditable="true"
-                        className="input-field"
-                        value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
-                    </span>
-                </div>
+                return (
+                    <div>
+                        {/* <span contentEditable="true"
+                            className="input-field"
+                            value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
+                        </span> */}
+                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
+                            {generateOptions(INC_OPERATORS, id)}
+                        </select>
+                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+
+                        {/* <span contentEditable="true"
+                            className="input-field"
+                            value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
+                        </span> */}
+                    </div>
+                );
             case 1: // <, <=, >, >=, !=, ==
                 const COMP_OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
-                return <div>
-                    <span contentEditable="true"
-                        className="input-field"
-                        value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
-                    </span>
-                    <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
-                        {generateOptions(COMP_OPERATORS, id)}
-                    </select>
-                    <span contentEditable="true"
-                        className="input-field"
-                        value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
-                    </span>
-                </div>
+                return (
+                    <div>
+                        {/* <span contentEditable="true"
+                            className="input-field"
+                            value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
+                        </span> */}
+                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
+                            {generateOptions(COMP_OPERATORS, id)}
+                        </select>
+                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        {/* <span contentEditable="true"
+                            className="input-field"
+                            value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
+                        </span> */}
+                    </div>
+                );
+            case 2: // function declaration, def function_name(inputs):
+                return (
+                    <div>
+                        def&nbsp;
+                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        (
+                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        ):
+                    </div>
+                );
         }
     }
 
