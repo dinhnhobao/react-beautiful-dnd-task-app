@@ -19,7 +19,8 @@ export default class Test extends React.Component {
         this.state = {
             items: TREE.items,
             inputs: TREE.inputs,
-            i: TREE.items.length
+            i: TREE.items.length,
+            droppableData: ''
         };
     }
 
@@ -131,9 +132,11 @@ export default class Test extends React.Component {
             case 6: // for i in range
                 return (
                     <div>
-                        for&nbsp;{input1_div}&nbsp;in&nbsp;range(
-                        {input2_div}
-                        ):
+                        <div>
+                            for&nbsp;{input1_div}&nbsp;in&nbsp;range(
+                            {input2_div}
+                            ):
+                        </div>
                     </div>
                 );
         }
@@ -184,6 +187,19 @@ export default class Test extends React.Component {
         return false;
     }
 
+    onDragOver = (e) => {
+        e.preventDefault();
+    }
+
+    onDrop = (e, cat) => {
+        let id = e.dataTransfer.getData("id");
+        this.setState({
+            droppableData: id
+        });
+    }
+    onDragStart = (e, id) => {
+        e.dataTransfer.setData("id", id); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
+    }
     render() {
         var tree = parseTree({
             items: this.state.items,
@@ -227,6 +243,13 @@ export default class Test extends React.Component {
                             1111
                         </div>
                     </div>
+                </div>
+
+                <div draggable onDragStart={(e) => this.onDragStart(e, 1)}>Drag</div>
+                <div onDragOver={(e) => this.onDragOver(e)}
+                    onDrop={(e) => this.onDrop(e, "complete")}
+                >
+                    Droppable data = {this.state.droppableData}
                 </div>
             </div >
         );
