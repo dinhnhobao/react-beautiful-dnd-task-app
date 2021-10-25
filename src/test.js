@@ -49,13 +49,15 @@ export default class Test extends React.Component {
         const newItems = [...this.state.items];
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newItems.push({ id: this.state.i });
-        console.log(MODEL_BLOCKS, index);
         newInputs[this.state.i] = MODEL_BLOCKS[index];
 
-        this.setState({ items: newItems, i: this.state.i + 1, inputs: newInputs });
-        console.log(this.state);
-
-        console.log(newInputs);
+        this.setState({ items: newItems, i: this.state.i + 1, inputs: newInputs }, () => {
+            if (index == 7) { // if -> also push elif and else
+                this.addBlock(e, 8);
+            } else if (index == 8) {
+                this.addBlock(e, 9);
+            }
+        });
     }
 
     onDragEnd = (items, item, path) => {
@@ -316,11 +318,8 @@ export default class Test extends React.Component {
                                         &nbsp;
                                         {input2_div_model}
                                     </div>
-                                    <div>
-                                        <img src={Drag} width={15} height={15}></img>
-                                    </div>
                                     <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
-                                </div >
+                                </div>
                             );
                         case 3:
                             return (
@@ -359,34 +358,30 @@ export default class Test extends React.Component {
                                     <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
                                 </div >
                             );
-                        case 7:
+                        case 7: // merge with 8, 9
                             return (
                                 <div>
                                     <div style={{ display: 'inline-block' }}>
                                         if&nbsp;({input1_div_model}):
                                     </div>
-                                    <div
-                                        style={{ display: 'inline-block' }}
-                                    >
-                                        <img src={Drop} width={15} height={15}></img>
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                    <div>
+                                        {String.fromCharCode(160).repeat(4) + "code here..."}
                                     </div>
-                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                    <div>
+                                        elif&nbsp;({input1_div_model}):
+                                    </div >
+                                    <div>
+                                        {String.fromCharCode(160).repeat(4) + "code here..."}
+                                    </div>
+                                    <div>
+                                        else:
+                                    </div>
+                                    <div>
+                                        {String.fromCharCode(160).repeat(4) + "code here..."}
+                                    </div>
                                 </div >
-                            );
-                        case 8:
-                            return (
-                                <div>
-                                    elif&nbsp; ({input1_div_model}):
-                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
-                                </div >
-                            );
-                        case 9:
-                            return (
-                                <div>
-                                    else:
-                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
-                                </div>
-                            );
+                            )
                     }
                 })}
             </div >;
