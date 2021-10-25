@@ -91,7 +91,7 @@ export default class Test extends React.Component {
                     OPERATORS = ['and', 'or'];
                 }
 
-                const options = <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                const options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
                 return (
