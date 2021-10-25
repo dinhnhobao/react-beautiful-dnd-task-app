@@ -8,3 +8,21 @@
 select {
     appearance: none;
 }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.vertical-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.code-section {
+    min-height: 90vh;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: '#00BFFF';
+}

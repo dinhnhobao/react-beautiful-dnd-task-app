@@ -189,12 +189,26 @@ export default class Test extends React.Component {
                 <button onClick={this.onClickFunc}>
                     Click me
                 </button>
-                <Nestable
-                    items={this.state.items}
-                    renderItem={this.renderItem}
-                    onChange={this.onDragEnd}
-                />
 
+                <div className='flex-container'>
+                    <div style={{ 'flex': '70%' }} className='code-section'>
+                        <div>
+                            <Nestable
+                                items={this.state.items}
+                                renderItem={this.renderItem}
+                                onChange={this.onDragEnd}
+                            />
+                        </div>
+                    </div>
+                    <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
+                        <div style={{ flex: '50%' }}>
+                            1111
+                        </div>
+                        <div style={{ flex: '50%' }}>
+                            1111
+                        </div>
+                    </div>
+                </div>
             </div >
         );
     }
