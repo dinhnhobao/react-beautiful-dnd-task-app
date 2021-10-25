@@ -79,8 +79,13 @@ export default class Test extends React.Component {
         operator, operand, operand
         */
         switch (fields["type"]) {
-            case 0: // +=, -=, *=, /=
-                const INC_OPERATORS = ['+=', '-=', '*=', '/='];
+            case 0: case 1:
+                var OPERATORS;
+                if (fields["type"] === 0) {
+                    OPERATORS = ['+=', '-=', '*=', '/='];
+                } else if (fields["type"] === 1) {
+                    OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
+                }
                 return (
                     <div>
                         <span contentEditable="true"
@@ -88,7 +93,7 @@ export default class Test extends React.Component {
                             onInput={(e) => this.handleInputChange(e, id, "input1")}>
                         </span>
                         <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleSelectChange(e, id, "operator")}>
-                            {generateOptions(INC_OPERATORS, id)}
+                            {generateOptions(OPERATORS, id)}
                         </select>
                         <span contentEditable="true"
                             className="input-field"
@@ -96,32 +101,19 @@ export default class Test extends React.Component {
                         </span>
                     </div>
                 );
-            case 1: // <, <=, >, >=, !=, ==
-                const COMP_OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
-                return (
-                    <div>
-                        {/* <span contentEditable="true"
-                            className="input-field"
-                            value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
-                        </span> */}
-                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
-                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
-                            {generateOptions(COMP_OPERATORS, id)}
-                        </select>
-                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
-                        {/* <span contentEditable="true"
-                            className="input-field"
-                            value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
-                        </span> */}
-                    </div>
-                );
             case 2: // function declaration, def function_name(inputs):
                 return (
                     <div>
                         def&nbsp;
-                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        <span contentEditable="true"
+                            className="input-field"
+                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
+                        </span>
                         (
-                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
+                        <span contentEditable="true"
+                            className="input-field"
+                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
+                        </span>
                         ):
                     </div>
                 );
