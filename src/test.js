@@ -19,7 +19,7 @@ export default class Test extends React.Component {
         this.state = {
             items: TREE.items,
             inputs: TREE.inputs,
-            i: 10
+            i: TREE.items.length
         };
     }
 
