@@ -173,8 +173,9 @@ export default class Test extends React.Component {
 
         var code = <div>
             {tree.map((row, index) => (
+                // To-do: handle long statements
                 <div>
-                    {String.fromCharCode(160).repeat(row.indent) + row.command}
+                    {String.fromCharCode(160).repeat(row.indent) + row.command + "_".repeat(30)}
                 </div>
             ))}
         </div>
@@ -198,7 +199,7 @@ export default class Test extends React.Component {
                         </div>
                     </div>
                     <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
-                        <div style={{ flex: '50%' }}>
+                        <div style={{ flex: '50%' }} className="python-code-section vertical-code-container">
                             {code}
                         </div>
                         <div style={{ flex: '50%' }}>
