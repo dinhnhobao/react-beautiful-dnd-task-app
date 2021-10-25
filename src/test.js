@@ -101,6 +101,20 @@ export default class Test extends React.Component {
                         </span>
                     </div>
                 );
+            case 3:
+                return (
+                    <div>
+                        <span contentEditable="true"
+                            className="input-field"
+                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
+                        </span>
+                        =
+                        <span contentEditable="true"
+                            className="input-field"
+                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
+                        </span>
+                    </div>
+                );
             case 2: // function declaration, def function_name(inputs):
                 return (
                     <div>
