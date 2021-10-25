@@ -145,8 +145,7 @@ export default class Test extends React.Component {
         To-do: unindent the remaining childrens
         */
         const DELETE = 46;
-        const BACKSPACE = 8;
-        if (e.which === BACKSPACE || e.which === DELETE) { //
+        if (e.which === DELETE) { //
             console.log("Delete button pressed");
             this.removeItem(item);
         }
