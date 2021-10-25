@@ -5,8 +5,9 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
 import Drag from './images/drag-flick.png';
 import Drop from './images/drop-here.png';
+import Add from './images/add.svg';
 
-const { TREE } = require('./constants');
+const { MODEL_BLOCKS, TREE } = require('./constants');
 const { parseBlock, parseTree } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
@@ -17,6 +18,14 @@ const generateOptions = (operators, block_id) => {
 
 const handlerStub = () => null;
 
+const input1_div_model = (
+    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+)
+
+const input2_div_model = (
+    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+)
+
 export default class Test extends React.Component {
 
     constructor(props) {
@@ -24,7 +33,7 @@ export default class Test extends React.Component {
         this.state = {
             items: TREE.items,
             inputs: TREE.inputs,
-            i: TREE.items.length,
+            i: 10000,
             droppableData: '',
             isChildDragging: false
         };
@@ -36,15 +45,12 @@ export default class Test extends React.Component {
         this.setState({ inputs: newInputs });
     }
 
-    onClickFunc = () => {
+    addBlock = (e, index) => { // index in model blocks
         const newItems = [...this.state.items];
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newItems.push({ id: this.state.i });
-        newInputs[this.state.i] = {
-            type: 0,
-            input1: "x",
-            input2: "1",
-        }
+        console.log(MODEL_BLOCKS, index);
+        newInputs[this.state.i] = MODEL_BLOCKS[index];
 
         this.setState({ items: newItems, i: this.state.i + 1, inputs: newInputs });
         console.log(this.state);
@@ -269,6 +275,121 @@ export default class Test extends React.Component {
         this.setState({ isChildDragging: false });
     }
     render() {
+        const choosingColumn =
+            <div>
+                {MODEL_BLOCKS.map((block, index) => {
+                    switch (block.type) {
+                        case 0: case 1:
+                            var OPERATORS;
+                            if (block.type === 0) {
+                                OPERATORS = ['+=', '-=', '*=', '/='];
+                            } else if (block.type === 1) {
+                                OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
+                            }
+                            var options = <select style={{ fontFamily: 'Courier New' }}>
+                                {generateOptions(OPERATORS, "")}
+                            </select>
+                            return (
+                                <div>
+                                    {input1_div_model}
+                                    &nbsp;
+                                    {options}
+                                    &nbsp;
+                                    {input2_div_model}
+
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div>
+
+                            );
+                        case 5: // or
+                            var OPERATORS = ['and', 'or'];
+                            var options = <select style={{ fontFamily: 'Courier New' }}>
+                                {generateOptions(OPERATORS, "")}
+                            </select>
+
+                            return (
+                                <div>
+                                    <div style={{ display: "inline-block" }}>
+                                        {input1_div_model}
+                                        &nbsp;
+                                        {options}
+                                        &nbsp;
+                                        {input2_div_model}
+                                    </div>
+                                    <div>
+                                        <img src={Drag} width={15} height={15}></img>
+                                    </div>
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 3:
+                            return (
+                                <div>
+                                    {input1_div_model}
+                                    &nbsp;=&nbsp;
+                                    {input2_div_model}
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 2: // function declaration, def function_name(inputs):
+                            return (
+                                <div>
+                                    def&nbsp;
+                                    {input1_div_model}
+                                    (
+                                    {input2_div_model}
+                                    ):
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 4: // return
+                            return (
+                                <div>
+                                    return&nbsp;
+                                    {input1_div_model}
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 6: // for i in range
+                            return (
+                                <div>
+                                    for&nbsp; {input1_div_model}&nbsp;in&nbsp;range(
+                                    {input2_div_model}
+                                    ):
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 7:
+                            return (
+                                <div>
+                                    <div style={{ display: 'inline-block' }}>
+                                        if&nbsp;({input1_div_model}):
+                                    </div>
+                                    <div
+                                        style={{ display: 'inline-block' }}
+                                    >
+                                        <img src={Drop} width={15} height={15}></img>
+                                    </div>
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 8:
+                            return (
+                                <div>
+                                    elif&nbsp; ({input1_div_model}):
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div >
+                            );
+                        case 9:
+                            return (
+                                <div>
+                                    else:
+                                    <img src={Add} width={15} height={15} onClick={(e) => this.addBlock(e, block.type)} />
+                                </div>
+                            );
+                    }
+                })}
+            </div >;
         var tree = parseTree({
             items: this.state.items,
             inputs: this.state.inputs
@@ -289,12 +410,15 @@ export default class Test extends React.Component {
 
 
             <div>
-                <button onClick={this.onClickFunc}>
+                {/* <button onClick={this.addBlock(type)}>
                     Click me
-                </button>
+                </button> */}
 
                 <div className='flex-container'>
-                    <div style={{ 'flex': '70%' }} className='code-section'>
+                    <div style={{ 'flex': '20%' }}>
+                        {choosingColumn}
+                    </div>
+                    <div style={{ 'flex': '50%' }} className='code-section'>
                         <div>
                             <Nestable
                                 items={this.state.items}

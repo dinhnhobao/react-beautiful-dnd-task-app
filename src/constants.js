@@ -104,4 +104,49 @@ const BLOCK = {
     input2: "1",
     operator: "<=",
 }
-module.exports = { BLOCK, TREE }
+
+const MODEL_BLOCKS = [
+    {
+        type: 0,
+        input1: "x",
+        input2: "1",
+        operator: "+=",
+    },
+    {
+        type: 1,
+        input1: "x",
+        input2: "100",
+        operator: "<",
+    },
+    {
+        type: 3,
+        input1: "x",
+        input2: "x + 1",
+    },
+    {
+        type: 5,
+        input1: "x == 0",
+        input2: "y == 0"
+    },
+    {
+        type: 2,
+        input1: "count",
+        input2: "x,y,z"
+    }, {
+        type: 4,
+        input1: "num",
+    }, {
+        type: 6,
+        input1: "i",
+        input2: "1,n+1"
+    }, {
+        type: 7,
+        input1: "cond"
+    }, {
+        type: 8,
+        input1: "cond"
+    }, {
+        type: 9,
+    }
+]
+module.exports = { BLOCK, MODEL_BLOCKS, TREE }
