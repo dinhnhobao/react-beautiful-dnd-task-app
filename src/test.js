@@ -4,6 +4,7 @@ import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
 const { TREE } = require('./constants');
+const { parseTree } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
     return operators.map((operator, index) => (
@@ -165,7 +166,22 @@ export default class Test extends React.Component {
     }
 
     render() {
+        var tree = parseTree({
+            items: this.state.items,
+            inputs: this.state.inputs
+        })
+
+        var code = <div>
+            {tree.map((row, index) => (
+                <div>
+                    {String.fromCharCode(160).repeat(row.indent) + row.command}
+                </div>
+            ))}
+        </div>
+
         return (
+
+
             <div>
                 <button onClick={this.onClickFunc}>
                     Click me
@@ -183,7 +199,7 @@ export default class Test extends React.Component {
                     </div>
                     <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
                         <div style={{ flex: '50%' }}>
-                            1111
+                            {code}
                         </div>
                         <div style={{ flex: '50%' }}>
                             1111

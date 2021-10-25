@@ -41,7 +41,7 @@ const parseTreeHelper = ({ items, inputs, indent }) => {
     return JSON.parse(JSON.stringify(result)); // deep copy
 }
 
-console.log(parseBlock(BLOCK));
-console.log(parseTree(TREE));
+// console.log(parseBlock(BLOCK));
+// console.log(parseTree(TREE));
 
-module.exports = { parseBlock }
+module.exports = { parseBlock, parseTree }
