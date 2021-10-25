@@ -23,11 +23,19 @@ export default class Test extends React.Component {
         };
     }
 
-    handleChange(event, id, input) {
+    handleInputChange(event, id, input) {
+        console.log(`handleChange called for ${id}`);
+        const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
+        console.log(event.currentTarget.textContent);
+        newInputs[id][input] = event.currentTarget.textContent;
+        this.setState({ inputs: newInputs });
+        console.log(newInputs);
+    }
+
+    handleSelectChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
         this.setState({ inputs: newInputs });
-        console.log(newInputs);
     }
 
     onClickFunc = () => {
@@ -75,20 +83,17 @@ export default class Test extends React.Component {
                 const INC_OPERATORS = ['+=', '-=', '*=', '/='];
                 return (
                     <div>
-                        {/* <span contentEditable="true"
+                        <span contentEditable="true"
                             className="input-field"
-                            value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}>
-                        </span> */}
-                        <input size="5" type="text" value={this.state.inputs[id]["input1"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
-                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleChange(e, id, "operator")}>
+                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
+                        </span>
+                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleSelectChange(e, id, "operator")}>
                             {generateOptions(INC_OPERATORS, id)}
                         </select>
-                        <input size="5" type="text" value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input1")}></input>
-
-                        {/* <span contentEditable="true"
+                        <span contentEditable="true"
                             className="input-field"
-                            value={this.state.inputs[id]["input2"]} onChange={(e) => this.handleChange(e, id, "input2")}>
-                        </span> */}
+                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
+                        </span>
                     </div>
                 );
             case 1: // <, <=, >, >=, !=, ==
@@ -176,7 +181,7 @@ export default class Test extends React.Component {
                 // To-do: handle long statements
                 <div>
                     <pre style={{ fontFamily: 'Courier New' }}>
-                        {String.fromCharCode(160).repeat(row.indent) + row.command + "_".repeat(30)}
+                        {String.fromCharCode(160).repeat(row.indent) + row.command}
                     </pre>
                 </div>
             ))}
