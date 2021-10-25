@@ -8,6 +8,8 @@ const parseBlock = ({ type, input1, input2, operator }) => {
             return [input1, "=", input2].join(" ");
         case 2:
             return `def ${input1}(${input2}):`;
+        case 4:
+            return `return ${input1}`
     };
 }
 

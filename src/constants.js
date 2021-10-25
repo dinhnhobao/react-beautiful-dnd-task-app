@@ -15,6 +15,7 @@ const TREE = {
         { id: 3 },
         { id: 4 },
         { id: 7 },
+        { id: 8 },
     ],
     inputs: {
         0: {
@@ -62,6 +63,10 @@ const TREE = {
             type: 3, // assignment
             input1: "x",
             input2: "1",
+        },
+        8: {
+            type: 4, // return
+            input1: "x"
         }
     },
 }
