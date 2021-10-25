@@ -14,7 +14,6 @@ const parseTree = ({ items, inputs }) => {
 }
 
 const parseTreeHelper = ({ items, inputs, indent }) => {
-    console.log(indent);
     if (items == undefined) {
         return [];
     }
