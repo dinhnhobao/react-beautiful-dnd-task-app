@@ -140,8 +140,12 @@ export default class Test extends React.Component {
     }
 
     handleDelete = (e, item) => {
-        const DELETE = "46";
-        const BACKSPACE = "8";
+        /*
+        Current block remove will remove all corresponding children
+        To-do: unindent the remaining childrens
+        */
+        const DELETE = 46;
+        const BACKSPACE = 8;
         if (e.which === BACKSPACE || e.which === DELETE) { //
             console.log("Delete button pressed");
             this.removeItem(item);
