@@ -92,9 +92,11 @@ export default class Test extends React.Component {
                             className="input-field"
                             onInput={(e) => this.handleInputChange(e, id, "input1")}>
                         </span>
+                        &nbsp;
                         <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleSelectChange(e, id, "operator")}>
                             {generateOptions(OPERATORS, id)}
                         </select>
+                        &nbsp;
                         <span contentEditable="true"
                             className="input-field"
                             onInput={(e) => this.handleInputChange(e, id, "input2")}>
@@ -108,7 +110,7 @@ export default class Test extends React.Component {
                             className="input-field"
                             onInput={(e) => this.handleInputChange(e, id, "input1")}>
                         </span>
-                        =
+                        &nbsp;=&nbsp;
                         <span contentEditable="true"
                             className="input-field"
                             onInput={(e) => this.handleInputChange(e, id, "input2")}>
