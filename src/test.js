@@ -175,7 +175,9 @@ export default class Test extends React.Component {
             {tree.map((row, index) => (
                 // To-do: handle long statements
                 <div>
-                    {String.fromCharCode(160).repeat(row.indent) + row.command + "_".repeat(30)}
+                    <pre style={{ fontFamily: 'Courier New' }}>
+                        {String.fromCharCode(160).repeat(row.indent) + row.command + "_".repeat(30)}
+                    </pre>
                 </div>
             ))}
         </div>
