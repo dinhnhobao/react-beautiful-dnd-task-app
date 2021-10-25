@@ -24,15 +24,6 @@ export default class Test extends React.Component {
     }
 
     handleInputChange(event, id, input) {
-        console.log(`handleChange called for ${id}`);
-        const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
-        console.log(event.currentTarget.textContent);
-        newInputs[id][input] = event.currentTarget.textContent;
-        this.setState({ inputs: newInputs });
-        console.log(newInputs);
-    }
-
-    handleSelectChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
         this.setState({ inputs: newInputs });
@@ -78,6 +69,17 @@ export default class Test extends React.Component {
         /*
         operator, operand, operand
         */
+
+        const input1_div = (
+            <input value={this.state.inputs[id]["input1"]}
+                onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+        )
+
+        const input2_div = (
+            <input value={this.state.inputs[id]["input2"]}
+                onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+        )
+
         switch (fields["type"]) {
             case 0: case 1: case 5:
                 var OPERATORS;
@@ -88,50 +90,34 @@ export default class Test extends React.Component {
                 } else if (fields["type"] == 5) { // and, or
                     OPERATORS = ['and', 'or'];
                 }
+
+                const options = <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                    {generateOptions(OPERATORS, id)}
+                </select>
                 return (
                     <div>
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
-                        </span>
+                        {input1_div}
                         &nbsp;
-                        <select value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleSelectChange(e, id, "operator")}>
-                            {generateOptions(OPERATORS, id)}
-                        </select>
+                        {options}
                         &nbsp;
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
-                        </span>
+                        {input2_div}
                     </div>
                 );
             case 3:
                 return (
                     <div>
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
-                        </span>
+                        {input1_div}
                         &nbsp;=&nbsp;
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
-                        </span>
+                        {input2_div}
                     </div>
                 );
             case 2: // function declaration, def function_name(inputs):
                 return (
                     <div>
                         def&nbsp;
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input1")}>
-                        </span>
+                        {input1_div}
                         (
-                        <span contentEditable="true"
-                            className="input-field"
-                            onInput={(e) => this.handleInputChange(e, id, "input2")}>
-                        </span>
+                        {input2_div}
                         ):
                     </div>
                 );
