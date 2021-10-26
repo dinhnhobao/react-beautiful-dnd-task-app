@@ -273,11 +273,14 @@ export default class Test extends React.Component {
         e.preventDefault(); // allow element to drag over
     }
 
-    onDrop = (e, id) => {
-        let expression = e.dataTransfer.getData("condition");
+    onDrop = (e, id) => { // code for dragging logical statement (case 5) and drop to if statement
+        let input1 = e.dataTransfer.getData("input1");
+        let input2 = e.dataTransfer.getData("input2");
+        let operator = e.dataTransfer.getData("operator");
 
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
-        newInputs[id]["input1"] = expression;
+        newInputs[id]["input1"] = parseBlock({ type: 5, input1, input2, operator });
+
         this.setState({
             inputs: newInputs
         }, () => {
@@ -285,9 +288,11 @@ export default class Test extends React.Component {
         });
     }
 
-    onDragStart = (e, id) => {
+    onDragStart = (e, id) => { // code for dragging logical statement (case 5) and drop to if statement
         console.log("Drag started");
-        e.dataTransfer.setData("condition", parseBlock(this.state.inputs[id])); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
+        e.dataTransfer.setData("input1", this.state.inputs[id].input1); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
+        e.dataTransfer.setData("input2", this.state.inputs[id].input2);
+        e.dataTransfer.setData("operator", this.state.inputs[id].operator);
     }
 
     onDrag = (e) => {
@@ -442,10 +447,10 @@ export default class Test extends React.Component {
                 </button> */}
 
                 <div className='flex-container'>
-                    <div style={{ 'flex': '18%' }}>
+                    <div style={{ 'flex': '18%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                         {choosingColumn}
                     </div>
-                    <div style={{ 'flex': '48%' }} className='code-section'>
+                    <div style={{ 'flex': '48%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className='code-section'>
                         <div>
                             <Nestable
                                 items={this.state.items}
@@ -456,14 +461,14 @@ export default class Test extends React.Component {
                         </div>
                     </div>
                     <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
-                        <div style={{ flex: '50%', borderBottom: '1px solid #00BBFF' }} className="python-code-section vertical-code-container">
+                        <div style={{ flex: '50%', borderBottom: '1px solid #00BBFF', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className="python-code-section vertical-code-container">
                             <div>
                                 {code}
                             </div>
                         </div>
-                        <div style={{ flex: '50%' }}>
+                        <div style={{ flex: '50%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                             <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
-                            <div style={{ marginTop: '5vh', marginLeft: '5vh' }}>
+                            <div style={{ paddingTop: '5vh', paddingLeft: '5vh' }}>
                                 <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
                                 <div>
                                     <div style={{ fontSize: '2vh', display: 'inline-block' }}> File name:&nbsp;</div>

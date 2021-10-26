@@ -150,7 +150,8 @@ const MODEL_BLOCKS = [
     {
         type: 5,
         input1: "x == 0",
-        input2: "y == 0"
+        input2: "y == 0",
+        operator: "and"
     },
     {
         type: 3,
