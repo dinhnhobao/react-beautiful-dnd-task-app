@@ -314,6 +314,12 @@ export default class Test extends React.Component {
         let input2 = e.dataTransfer.getData("input2");
         let operator = e.dataTransfer.getData("operator");
         let source = parseInt(e.dataTransfer.getData("source"));
+
+        console.log(`onDrop called`);
+        if (this.state.inputs[id].type != 5) { // cannot drop
+            return;
+        }
+
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id]["input1"] = parseBlock({ type: 5, input1, input2, operator });
 
