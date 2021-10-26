@@ -236,6 +236,14 @@ export default class Test extends React.Component {
         }
     };
 
+    removeItemById = (id) => {
+        const newItems = JSON.parse(JSON.stringify(this.state.items));
+        console.log(this.removeSearch(newItems, id) === true);
+        // console.log(newItems);
+        // console.log(id, typeof id);
+        this.setState({ items: newItems, i: this.state.i + 1 });
+    }
+
     removeItem = (item) => {
         console.log(`${JSON.stringify(item)} deleting`);
 
@@ -277,7 +285,7 @@ export default class Test extends React.Component {
         let input1 = e.dataTransfer.getData("input1");
         let input2 = e.dataTransfer.getData("input2");
         let operator = e.dataTransfer.getData("operator");
-
+        let source = parseInt(e.dataTransfer.getData("source"));
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id]["input1"] = parseBlock({ type: 5, input1, input2, operator });
 
@@ -286,6 +294,11 @@ export default class Test extends React.Component {
         }, () => {
             this.setState({ isChildDragging: false });
         });
+
+        console.log(source);
+        // remove expression block
+        this.removeItemById(source);
+        console.log(`Destination id ${id}`);
     }
 
     onDragStart = (e, id) => { // code for dragging logical statement (case 5) and drop to if statement
@@ -293,6 +306,8 @@ export default class Test extends React.Component {
         e.dataTransfer.setData("input1", this.state.inputs[id].input1); // DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
         e.dataTransfer.setData("input2", this.state.inputs[id].input2);
         e.dataTransfer.setData("operator", this.state.inputs[id].operator);
+        e.dataTransfer.setData("source", id);
+        console.log(`source id ${id}`)
     }
 
     onDrag = (e) => {
