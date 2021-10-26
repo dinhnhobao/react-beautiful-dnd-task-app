@@ -19,11 +19,11 @@ const generateOptions = (operators, block_id) => {
 const handlerStub = () => null;
 
 const input1_div_model = (
-    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
 )
 
 const input2_div_model = (
-    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+    <input style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
 )
 
 export default class Test extends React.Component {
@@ -68,7 +68,7 @@ export default class Test extends React.Component {
     renderItem = ({ item }) =>
         <div tabIndex="0" onKeyDown={(e) => this.handleDelete(e, item)}>
             {this.getInputField(item.id)}
-        </div >;
+        </div>;
 
     getInputField = (id) => {
         let fields = this.state.inputs[id];
@@ -86,12 +86,12 @@ export default class Test extends React.Component {
 
         const input1_div = (
             <input value={this.state.inputs[id]["input1"]}
-                onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+                onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
         )
 
         const input2_div = (
             <input value={this.state.inputs[id]["input2"]}
-                onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New' }} />
+                onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
         )
 
         switch (fields["type"]) {
@@ -102,7 +102,7 @@ export default class Test extends React.Component {
                 } else if (fields["type"] === 1) {
                     OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
                 }
-                var options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
                 return (
@@ -116,7 +116,7 @@ export default class Test extends React.Component {
                 );
             case 5: // or
                 var OPERATORS = ['and', 'or'];
-                var options = <select style={{ fontFamily: 'Courier New' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
+                var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
 
@@ -288,7 +288,7 @@ export default class Test extends React.Component {
                             } else if (block.type === 1) {
                                 OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
                             }
-                            var options = <select style={{ fontFamily: 'Courier New' }}>
+                            var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }}>
                                 {generateOptions(OPERATORS, "")}
                             </select>
                             return (
@@ -305,7 +305,7 @@ export default class Test extends React.Component {
                             );
                         case 5: // or
                             var OPERATORS = ['and', 'or'];
-                            var options = <select style={{ fontFamily: 'Courier New' }}>
+                            var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }}>
                                 {generateOptions(OPERATORS, "")}
                             </select>
 
@@ -394,7 +394,7 @@ export default class Test extends React.Component {
             {tree.map((row, index) => (
                 // To-do: handle long statements
                 <div>
-                    <pre style={{ fontFamily: 'Courier New' }}>
+                    <pre style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }}>
                         {String.fromCharCode(160).repeat(row.indent) + row.command}
                     </pre>
                 </div>
