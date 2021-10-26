@@ -6,9 +6,11 @@ import './app.css';
 import Drag from './images/drag-flick.png';
 import Drop from './images/drop-here.png';
 import Add from './images/add.svg';
+import Save from './images/save.png';
+var FileSaver = require('file-saver');
 
 const { MODEL_BLOCKS, TREE } = require('./constants');
-const { parseBlock, parseTree } = require('./parser');
+const { parseBlock, parseTree, getFileOutput } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
     return operators.map((operator, index) => (
@@ -276,6 +278,17 @@ export default class Test extends React.Component {
     onDragExpressionEnd = (e) => {
         this.setState({ isChildDragging: false });
     }
+
+    onSaveFile = (e) => {
+        const outputString = getFileOutput(parseTree({
+            items: this.state.items,
+            inputs: this.state.inputs
+        }));
+        console.log(outputString);
+        var blob = new Blob([outputString], { type: "text/plain;charset=utf-8" });
+        FileSaver.saveAs(blob, "hello world.py");
+    }
+
     render() {
         const choosingColumn =
             <div>
@@ -430,7 +443,7 @@ export default class Test extends React.Component {
                             </div>
                         </div>
                         <div style={{ flex: '50%' }}>
-                            1111
+                            <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)}></img>
                         </div>
                     </div>
                 </div>
