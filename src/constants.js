@@ -20,7 +20,8 @@ const TREE = {
         { id: 10 },
         { id: 11 },
         { id: 12 },
-        { id: 13 }
+        { id: 13 },
+        { id: 14 }
     ],
     inputs: {
         0: {
@@ -94,6 +95,10 @@ const TREE = {
         },
         13: { // else
             type: 9,
+        },
+        14: {
+            type: 10,
+            input1: "i"
         }
     },
 }
@@ -149,4 +154,25 @@ const MODEL_BLOCKS = [
         type: 9,
     }
 ]
-module.exports = { BLOCK, MODEL_BLOCKS, TREE }
+
+const SHORT_TREE = {
+    items: [
+        {
+            id: 0, children: [
+                { id: 1 }
+            ]
+        },
+    ],
+    inputs: {
+        0: {
+            type: 6, // for i in range():
+            input1: "i",
+            input2: "1, 4"
+        },
+        1: {
+            type: 10,
+            input1: "i"
+        }
+    }
+}
+module.exports = { BLOCK, MODEL_BLOCKS, TREE, SHORT_TREE }

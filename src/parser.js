@@ -19,6 +19,8 @@ const parseBlock = ({ type, input1, input2, operator }) => {
             return `elif (${input1}):`
         case 9:
             return `else:`
+        case 10:
+            return `print(${input1})`
     };
 }
 

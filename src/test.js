@@ -11,7 +11,7 @@ import Drop from './images/drop-here.png';
 import Add from './images/add.svg';
 import Save from './images/save.png';
 
-const { MODEL_BLOCKS, TREE } = require('./constants');
+const { MODEL_BLOCKS, TREE, SHORT_TREE } = require('./constants');
 const { parseBlock, parseTree, getFileOutput } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
@@ -35,11 +35,14 @@ export default class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: TREE.items,
-            inputs: TREE.inputs,
+            // items: TREE.items,
+            // inputs: TREE.inputs,
+            items: SHORT_TREE.items,
+            inputs: SHORT_TREE.inputs,
             i: 10000,
             droppableData: '',
-            isChildDragging: false
+            isChildDragging: false,
+            fileName: ''
         };
     }
 
@@ -208,6 +211,12 @@ export default class Test extends React.Component {
                 return (
                     <div>
                         else:
+                    </div>
+                );
+            case 10: // print
+                return (
+                    <div>
+                        print({input1_div})
                     </div>
                 );
         }
