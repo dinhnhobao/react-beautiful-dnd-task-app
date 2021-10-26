@@ -50,6 +50,11 @@ export default class Test extends React.Component {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
         this.setState({ inputs: newInputs }, () => {
+            if (input === "operator") {
+                return;
+            }
+
+            // change input field size
             console.log(document.getElementById(`${id}-${input}`));
             document.getElementById(`${id}-${input}`).style.width = `${this.state.inputs[id][input].length}ch`; // set width according to length of input field
         });
@@ -101,17 +106,34 @@ export default class Test extends React.Component {
         /*
         operator, operand, operand
         */
+        // const input1_length = this.state.inputs[id].hasOwnProperty("input1") ? this.state.inputs[id]
+        console.log(this.state.inputs[id]);
+        console.log(this.state.inputs[id].hasOwnProperty("input2"));
 
         const input1_div = (
             <div style={{ display: 'inline-block', width: '1vw !important' }}>
                 <input id={`${id}-input1`} size={20} style={{ fontSize: '2vh', width: `${this.state.inputs[id]["input1"]}ch` }} value={this.state.inputs[id]["input1"]}
-                    onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
+                    onChange={(e) => this.handleInputChange(e, id, "input1")}
+                    style={{
+                        width: `${this.state.inputs[id].hasOwnProperty("input1") ?
+                            this.state.inputs[id]['input1'].length + "ch" : ''}`,
+                        height: '11px',
+                        fontFamily: 'Courier New',
+                        fontSize: '2.5vh'
+                    }} />
             </div >
         );
 
         const input2_div = (
             <input id={`${id}-input2`} style={{ fontSize: '2vh', width: `${this.state.inputs[id]["input2"]}ch` }} value={this.state.inputs[id]["input2"]}
-                onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
+                onChange={(e) => this.handleInputChange(e, id, "input2")}
+                style={{
+                    width: `${this.state.inputs[id].hasOwnProperty("input2") ?
+                        this.state.inputs[id]['input2'].length + "ch" : ''}`,
+                    height: '11px',
+                    fontFamily: 'Courier New',
+                    fontSize: '2.5vh'
+                }} />
         )
 
         switch (fields["type"]) {
