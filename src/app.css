@@ -62,3 +62,7 @@ select {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* .nestable-item {
+    height: 2.5vh
+} */
