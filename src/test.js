@@ -446,7 +446,9 @@ export default class Test extends React.Component {
                         </div>
                         <div style={{ flex: '50%' }}>
                             <ReactTooltip type="info" />
-                            <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                            <div style={{ marginTop: '5vh', marginLeft: '5vh' }}>
+                                <img src={Save} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                            </div>
                         </div>
                     </div>
                 </div>
