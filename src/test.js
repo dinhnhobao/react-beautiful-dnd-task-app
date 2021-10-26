@@ -49,6 +49,12 @@ export default class Test extends React.Component {
         this.setState({ inputs: newInputs });
     }
 
+    handleFileNameChange = (event) => {
+        this.setState({
+            fileName: event.target.value
+        });
+    }
+
     addBlock = (e, index) => { // index in model blocks
         const newItems = [...this.state.items];
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
@@ -288,7 +294,7 @@ export default class Test extends React.Component {
         }));
         console.log(outputString);
         var blob = new Blob([outputString], { type: "text/plain;charset=utf-8" });
-        FileSaver.saveAs(blob, "hello world.py");
+        FileSaver.saveAs(blob, `${this.state.fileName}.py`);
     }
 
     render() {
@@ -447,7 +453,12 @@ export default class Test extends React.Component {
                         <div style={{ flex: '50%' }}>
                             <ReactTooltip type="info" />
                             <div style={{ marginTop: '5vh', marginLeft: '5vh' }}>
-                                <img src={Save} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                                <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                                <div>
+                                    <div style={{ fontSize: '2vh', display: 'inline-block' }}> File name:&nbsp;</div>
+                                    <input size="10" style={{ fontFamily: 'Courier New', fontSize: '2vh', display: 'inline-block' }} value={this.state.fileName} onChange={(e) => this.handleFileNameChange(e)}></input>
+                                    <div style={{ fontSize: '2vh', display: 'inline-block' }}>.py</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -458,7 +469,7 @@ export default class Test extends React.Component {
                     onDrop={(e) => this.onDrop(e, "complete")}
                 > */}
                 {/* Droppable data = {this.state.droppableData} */}
-            </div>
+            </div >
         );
     }
 }
