@@ -424,7 +424,7 @@ export default class Test extends React.Component {
                         </div>
                     </div>
                     <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
-                        <div style={{ flex: '50%', borderBottom: '2px groove #00BBFF' }} className="python-code-section vertical-code-container">
+                        <div style={{ flex: '50%', borderBottom: '1px solid #00BBFF' }} className="python-code-section vertical-code-container">
                             <div>
                                 {code}
                             </div>
