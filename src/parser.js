@@ -1,4 +1,5 @@
 const { TREE, BLOCK } = require('./constants');
+const fs = require('fs');
 
 const parseBlock = ({ type, input1, input2, operator }) => {
     switch (type) {
@@ -52,7 +53,31 @@ const parseTreeHelper = ({ items, inputs, indent }) => {
     return JSON.parse(JSON.stringify(result)); // deep copy
 }
 
+const saveToFile = (parsedTree) => {
+    var result = '';
+    for (let i = 0; i < parsedTree.length; i++) {
+        result += String.fromCharCode(160).repeat(parsedTree[i].indent) + parsedTree[i].command;
+        result += '\n';
+    }
+
+    const FILE_DIRECTORY = './files';
+    if (!fs.existsSync(FILE_DIRECTORY)) { // create directory if not exists
+        fs.mkdirSync(FILE_DIRECTORY);
+    }
+
+    const FILENAME = `${getRandomString()}.py`
+
+    fs.writeFile(FILE_DIRECTORY + "/" + FILENAME, result, function (err) {
+        if (err) return console.log(err);
+        console.log(`File ${FILENAME} has been saved`);
+    });
+}
+
+const getRandomString = () => { // returns a random string of length 5
+    return Math.random().toString(36).substr(2, 5);
+}
+
 // console.log(parseBlock(BLOCK));
 // console.log(parseTree(TREE));
-
+console.log(saveToFile(parseTree(TREE)));
 module.exports = { parseBlock, parseTree }
