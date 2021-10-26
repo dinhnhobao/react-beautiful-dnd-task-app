@@ -133,7 +133,6 @@ export default class Test extends React.Component {
                     style={{
                         width: `${this.state.inputs[id].hasOwnProperty("input1") ?
                             this.state.inputs[id]['input1'].length + "ch" : ''}`,
-                        height: '11px',
                         fontFamily: 'Courier New',
                         fontSize: '2.5vh'
                     }} />
@@ -146,7 +145,6 @@ export default class Test extends React.Component {
                 style={{
                     width: `${this.state.inputs[id].hasOwnProperty("input2") ?
                         this.state.inputs[id]['input2'].length + "ch" : ''}`,
-                    height: '11px',
                     fontFamily: 'Courier New',
                     fontSize: '2.5vh'
                 }} />
