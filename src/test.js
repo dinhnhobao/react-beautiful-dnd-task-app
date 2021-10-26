@@ -69,6 +69,8 @@ export default class Test extends React.Component {
                 this.addBlock(e, 8);
             } else if (type == 8) {
                 this.addBlock(e, 9);
+            } else if (type == 2) { // def -> push return function
+                this.addBlock(e, 4);
             }
         });
     }
