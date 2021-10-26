@@ -89,12 +89,12 @@ export default class Test extends React.Component {
         */
 
         const input1_div = (
-            <input value={this.state.inputs[id]["input1"]}
+            <input style={{ fontSize: '2vh' }} value={this.state.inputs[id]["input1"]}
                 onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
         )
 
         const input2_div = (
-            <input value={this.state.inputs[id]["input2"]}
+            <input style={{ fontSize: '2vh' }} value={this.state.inputs[id]["input2"]}
                 onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
         )
 
