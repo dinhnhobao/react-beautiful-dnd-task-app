@@ -3,11 +3,13 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
+import ReactTooltip from 'react-tooltip';
+import FileSaver from 'file-saver';
+
 import Drag from './images/drag-flick.png';
 import Drop from './images/drop-here.png';
 import Add from './images/add.svg';
 import Save from './images/save.png';
-var FileSaver = require('file-saver');
 
 const { MODEL_BLOCKS, TREE } = require('./constants');
 const { parseBlock, parseTree, getFileOutput } = require('./parser');
@@ -443,7 +445,8 @@ export default class Test extends React.Component {
                             </div>
                         </div>
                         <div style={{ flex: '50%' }}>
-                            <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)}></img>
+                            <ReactTooltip type="info" />
+                            <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
                         </div>
                     </div>
                 </div>
