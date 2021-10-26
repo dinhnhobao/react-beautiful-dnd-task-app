@@ -42,14 +42,17 @@ export default class Test extends React.Component {
             i: 10000,
             droppableData: '',
             isChildDragging: false,
-            fileName: ''
+            fileName: '',
         };
     }
 
     handleInputChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
-        this.setState({ inputs: newInputs });
+        this.setState({ inputs: newInputs }, () => {
+            console.log(document.getElementById(`${id}-${input}`));
+            document.getElementById(`${id}-${input}`).style.width = `${this.state.inputs[id][input].length}ch`; // set width according to length of input field
+        });
     }
 
     handleFileNameChange = (event) => {
@@ -100,12 +103,14 @@ export default class Test extends React.Component {
         */
 
         const input1_div = (
-            <input style={{ fontSize: '2vh' }} value={this.state.inputs[id]["input1"]}
-                onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
-        )
+            <div style={{ display: 'inline-block', width: '1vw !important' }}>
+                <input id={`${id}-input1`} size={20} style={{ fontSize: '2vh', width: `${this.state.inputs[id]["input1"]}ch` }} value={this.state.inputs[id]["input1"]}
+                    onChange={(e) => this.handleInputChange(e, id, "input1")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
+            </div >
+        );
 
         const input2_div = (
-            <input style={{ fontSize: '2vh' }} value={this.state.inputs[id]["input2"]}
+            <input id={`${id}-input2`} style={{ fontSize: '2vh', width: `${this.state.inputs[id]["input2"]}ch` }} value={this.state.inputs[id]["input2"]}
                 onChange={(e) => this.handleInputChange(e, id, "input2")} style={{ width: '40px', height: '11px', fontFamily: 'Courier New', fontSize: '2.5vh' }} />
         )
 
@@ -455,52 +460,47 @@ export default class Test extends React.Component {
 
         return (
 
-
-            <div style={{ border: '0.35vh groove #00BBFF' }}>
-                {/* <button onClick={this.addBlock(type)}>
+            <div>
+                <div style={{ border: '0.35vh groove #00BBFF' }}>
+                    {/* <button onClick={this.addBlock(type)}>
                     Click me
                 </button> */}
 
-                <div className='flex-container'>
-                    <div style={{ 'flex': '18%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
-                        {choosingColumn}
-                    </div>
-                    <div style={{ 'flex': '48%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className='code-section'>
-                        <div>
-                            <Nestable
-                                items={this.state.items}
-                                renderItem={this.renderItem}
-                                onChange={this.onDragEnd}
-                                handler={this.state.isChildDragging ? handlerStub : this.handler}
-                            />
+                    <div className='flex-container'>
+                        <div style={{ 'flex': '18%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
+                            {choosingColumn}
                         </div>
-                    </div>
-                    <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
-                        <div style={{ flex: '50%', borderBottom: '1px solid #00BBFF', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className="python-code-section vertical-code-container">
+                        <div style={{ 'flex': '48%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className='code-section'>
                             <div>
-                                {code}
+                                <Nestable
+                                    items={this.state.items}
+                                    renderItem={this.renderItem}
+                                    onChange={this.onDragEnd}
+                                    handler={this.state.isChildDragging ? handlerStub : this.handler}
+                                />
                             </div>
                         </div>
-                        <div style={{ flex: '50%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
-                            <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
-                            <div style={{ paddingTop: '5vh', paddingLeft: '5vh' }}>
-                                <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                        <div style={{ 'flex': '30%' }} className='vertical-flex-container'>
+                            <div style={{ flex: '50%', borderBottom: '1px solid #00BBFF', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }} className="python-code-section vertical-code-container">
                                 <div>
-                                    <div style={{ fontSize: '2vh', display: 'inline-block' }}> File name:&nbsp;</div>
-                                    <input size="10" style={{ fontFamily: 'Courier New', fontSize: '2vh', display: 'inline-block' }} value={this.state.fileName} onChange={(e) => this.handleFileNameChange(e)}></input>
-                                    <div style={{ fontSize: '2vh', display: 'inline-block' }}>.py</div>
+                                    {code}
+                                </div>
+                            </div>
+                            <div style={{ flex: '50%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
+                                <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
+                                <div style={{ paddingTop: '5vh', paddingLeft: '5vh' }}>
+                                    <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
+                                    <div>
+                                        <div style={{ fontSize: '2vh', display: 'inline-block' }}> File name:&nbsp;</div>
+                                        <input size="10" style={{ fontFamily: 'Courier New', fontSize: '2vh', display: 'inline-block' }} value={this.state.fileName} onChange={(e) => this.handleFileNameChange(e)}></input>
+                                        <div style={{ fontSize: '2vh', display: 'inline-block' }}>.py</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                {/* <div draggable onDragStart={(e) => this.onDragStart(e, 1)} onDragEnd={(e) => this.onDragExpressionEnd(e)}>Drag</div>
-                <div onDragOver={(e) => this.onDragOver(e)}
-                    onDrop={(e) => this.onDrop(e, "complete")}
-                > */}
-                {/* Droppable data = {this.state.droppableData} */}
-            </div >
+                </div >
+            </div>
         );
     }
 }
