@@ -49,19 +49,6 @@ export default class Test extends React.Component {
         };
     }
 
-    componentDidMount() {
-        // https://stackoverflow.com/questions/53335743/display-python-code-on-a-webpage-using-highlight-js-and-jquery
-        // Add CSS and JavaScript for Python highlighting
-        const script = document.createElement("script");
-        script.src = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js";
-        script.async = true;
-        document.body.appendChild(script);
-
-        const link = document.createElement("link");
-        link.href = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css";
-        link.rel = 'stylesheet';
-        document.body.appendChild(link);
-    }
     handleInputChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
@@ -330,10 +317,6 @@ export default class Test extends React.Component {
         let source = parseInt(e.dataTransfer.getData("source"));
 
         console.log(`onDrop called`);
-        console.log(this.state.inputs[id].type);
-        // if (this.state.inputs[id].type != 5) { // cannot drop
-        //     return;
-        // }
 
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id]["input1"] = parseBlock({ type: 5, input1, input2, operator });
