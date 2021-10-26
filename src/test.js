@@ -45,7 +45,7 @@ export default class Test extends React.Component {
             i: 10000,
             droppableData: '',
             isChildDragging: false,
-            fileName: '',
+            fileName: 'count',
         };
     }
 
@@ -123,8 +123,8 @@ export default class Test extends React.Component {
         operator, operand, operand
         */
         // const input1_length = this.state.inputs[id].hasOwnProperty("input1") ? this.state.inputs[id]
-        console.log(this.state.inputs[id]);
-        console.log(this.state.inputs[id].hasOwnProperty("input2"));
+        // console.log(this.state.inputs[id]);
+        // console.log(this.state.inputs[id].hasOwnProperty("input2"));
 
         const input1_div = (
             <div style={{ display: 'inline-block', width: '1vw !important' }}>
@@ -332,9 +332,10 @@ export default class Test extends React.Component {
         let source = parseInt(e.dataTransfer.getData("source"));
 
         console.log(`onDrop called`);
-        if (this.state.inputs[id].type != 5) { // cannot drop
-            return;
-        }
+        console.log(this.state.inputs[id].type);
+        // if (this.state.inputs[id].type != 5) { // cannot drop
+        //     return;
+        // }
 
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id]["input1"] = parseBlock({ type: 5, input1, input2, operator });

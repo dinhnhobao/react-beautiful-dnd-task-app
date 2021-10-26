@@ -188,7 +188,21 @@ const SHORT_PROGRAM = {
         { id: 1 },
         {
             id: 2, children: [
-                { id: 3 }
+                {
+                    id: 5, children: [
+                        { id: 3 }
+                    ]
+                },
+                {
+                    id: 6, children: [
+                        { id: 7 }
+                    ],
+                },
+                {
+                    id: 8, children: [
+                        { id: 9 }
+                    ]
+                }
             ]
         },
         { id: 4 }
@@ -218,6 +232,29 @@ const SHORT_PROGRAM = {
         4: {
             type: 10,
             input1: "total"
+        },
+        5: {
+            type: 7,
+            input1: "i % 2 == 0"
+        },
+        6: {
+            type: 8,
+            input1: "i % 3 == 0"
+        },
+        7: {
+            type: 0,
+            input1: "total",
+            input2: "3*i",
+            operator: "+=",
+        },
+        8: {
+            type: 9
+        },
+        9: {
+            type: 0,
+            input1: "total",
+            input2: "1",
+            operator: "-=",
         }
     }
 }
