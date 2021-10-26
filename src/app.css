@@ -1,7 +1,7 @@
 .input-field {
     display: inline-block;
     border: solid 1px black;
-    min-width: 10px; 
+    min-width: 10px;
     max-width: 200px
 }
 
@@ -41,40 +41,60 @@ select {
     max-width: 30vw;
     overflow-x: auto;
     overflow-y: auto;
-}
-/* width */
-::-webkit-scrollbar {
-    height: 0.5vw; /* height of horizontal scrollbar */
-    width: 0.5vw; /* width of vertical scrollbar */
+    background-color: #19171c;
 }
 
+
+/* width */
+
+::-webkit-scrollbar {
+    height: 0.5vw;
+    /* height of horizontal scrollbar */
+    width: 0.5vw;
+    /* width of vertical scrollbar */
+}
+
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
 
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
 
 /* .tooltip-customized {
     left: 10px;
     top: 10px;
 } */
+
+
 /* .nestable-item {
     height: 2.5vh
 } 
 
-*/ 
+*/
+
+
 /* input {
     box-shadow : none;  
 }  */
 
+
 /* input {-webkit-appearance: none; box-shadow: none !important; } */
+
+
 /* :-webkit-autofill { color: #fff !important; } */

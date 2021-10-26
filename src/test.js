@@ -3,6 +3,7 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
+import './syntax-highlighting.css';
 import ReactTooltip from 'react-tooltip';
 import FileSaver from 'file-saver';
 
@@ -11,6 +12,7 @@ import Drop from './images/drop-here.png';
 import Add from './images/add.svg';
 import Save from './images/save.png';
 
+import Highlight from 'react-highlight';
 
 const { MODEL_BLOCKS, TREE, SHORT_TREE } = require('./constants');
 const { parseBlock, parseTree, getFileOutput } = require('./parser');
@@ -481,9 +483,9 @@ export default class Test extends React.Component {
             {tree.map((row, index) => (
                 // To-do: handle long statements
                 <div>
-                    <pre style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }}>
+                    <Highlight language="python">
                         {String.fromCharCode(160).repeat(row.indent) + row.command}
-                    </pre>
+                    </Highlight>
                 </div>
             ))}
         </div>
