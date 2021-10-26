@@ -3,7 +3,7 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
-import './syntax-highlighting.css';
+// import './syntax-highlighting.css';
 import ReactTooltip from 'react-tooltip';
 import FileSaver from 'file-saver';
 
@@ -49,6 +49,19 @@ export default class Test extends React.Component {
         };
     }
 
+    componentDidMount() {
+        // https://stackoverflow.com/questions/53335743/display-python-code-on-a-webpage-using-highlight-js-and-jquery
+        // Add CSS and JavaScript for Python highlighting
+        const script = document.createElement("script");
+        script.src = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        const link = document.createElement("link");
+        link.href = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css";
+        link.rel = 'stylesheet';
+        document.body.appendChild(link);
+    }
     handleInputChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
