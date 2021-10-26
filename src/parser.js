@@ -56,7 +56,7 @@ const parseTreeHelper = ({ items, inputs, indent }) => {
 const getFileOutput = (parsedTree) => {
     var result = '';
     for (let i = 0; i < parsedTree.length; i++) {
-        result += String.fromCharCode(160).repeat(parsedTree[i].indent) + parsedTree[i].command;
+        result += " ".repeat(parsedTree[i].indent) + parsedTree[i].command;
         result += '\n';
     }
     return result;
