@@ -70,7 +70,11 @@ select {
 /* .nestable-item {
     height: 2.5vh
 } 
-input {
-    height: 2.5vh !important;
-} 
+
 */ 
+/* input {
+    box-shadow : none;  
+}  */
+
+/* input {-webkit-appearance: none; box-shadow: none !important; } */
+/* :-webkit-autofill { color: #fff !important; } */
