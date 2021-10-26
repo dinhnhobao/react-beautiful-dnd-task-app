@@ -124,9 +124,18 @@ const MODEL_BLOCKS = [
         operator: "<",
     },
     {
+        type: 2,
+        input1: "count",
+        input2: "x,y,z"
+    },
+    {
         type: 3,
         input1: "x",
         input2: "x + 1",
+    },
+    {
+        type: 4,
+        input1: "num",
     },
     {
         type: 5,
@@ -134,13 +143,6 @@ const MODEL_BLOCKS = [
         input2: "y == 0"
     },
     {
-        type: 2,
-        input1: "count",
-        input2: "x,y,z"
-    }, {
-        type: 4,
-        input1: "num",
-    }, {
         type: 6,
         input1: "i",
         input2: "1,n+1"

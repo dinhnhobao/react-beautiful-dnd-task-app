@@ -58,16 +58,16 @@ export default class Test extends React.Component {
         });
     }
 
-    addBlock = (e, index) => { // index in model blocks
+    addBlock = (e, type) => { // index in model blocks
         const newItems = [...this.state.items];
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newItems.push({ id: this.state.i });
-        newInputs[this.state.i] = MODEL_BLOCKS[index];
+        newInputs[this.state.i] = MODEL_BLOCKS.filter(block => block.type === type)[0];
 
         this.setState({ items: newItems, i: this.state.i + 1, inputs: newInputs }, () => {
-            if (index == 7) { // if -> also push elif and else
+            if (type == 7) { // if -> also push elif and else
                 this.addBlock(e, 8);
-            } else if (index == 8) {
+            } else if (type == 8) {
                 this.addBlock(e, 9);
             }
         });
