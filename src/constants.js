@@ -141,6 +141,11 @@ const MODEL_BLOCKS = [
         operator: "+=",
     },
     {
+        type: 3,
+        input1: "x",
+        input2: "x + 1",
+    },
+    {
         type: 1,
         input1: "x",
         input2: "100",
@@ -153,11 +158,7 @@ const MODEL_BLOCKS = [
         input2: "y == 0",
         operator: "and"
     },
-    {
-        type: 3,
-        input1: "x",
-        input2: "x + 1",
-    },
+
 ]
 
 const SHORT_TREE = {

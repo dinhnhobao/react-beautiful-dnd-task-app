@@ -137,13 +137,9 @@ export default class Test extends React.Component {
         )
 
         switch (fields["type"]) {
-            case 0: case 1:
-                var OPERATORS;
-                if (fields["type"] === 0) {
-                    OPERATORS = ['+=', '-=', '*=', '/='];
-                } else if (fields["type"] === 1) {
-                    OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
-                }
+            case 0:
+                var OPERATORS = ['+=', '-=', '*=', '/='];
+
                 var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
@@ -156,8 +152,13 @@ export default class Test extends React.Component {
                         {input2_div}
                     </div>
                 );
-            case 5: // or
-                var OPERATORS = ['and', 'or'];
+            case 1: case 5: // or
+                var OPERATORS;
+                if (fields["type"] === 1) {
+                    OPERATORS = ['<', '<=', '==', '>=', '>', '!='];
+                } else if (fields["type"] === 5) {
+                    OPERATORS = ['and', 'or'];
+                }
                 var options = <select style={{ fontFamily: 'Courier New', fontSize: '2.5vh' }} value={this.state.inputs[id]["operator"]} onChange={(e) => this.handleInputChange(e, id, "operator")}>
                     {generateOptions(OPERATORS, id)}
                 </select>
