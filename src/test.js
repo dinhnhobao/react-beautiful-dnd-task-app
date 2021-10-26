@@ -436,16 +436,16 @@ export default class Test extends React.Component {
         return (
 
 
-            <div>
+            <div style={{ border: '0.35vh groove #00BBFF' }}>
                 {/* <button onClick={this.addBlock(type)}>
                     Click me
                 </button> */}
 
                 <div className='flex-container'>
-                    <div style={{ 'flex': '20%' }}>
+                    <div style={{ 'flex': '18%' }}>
                         {choosingColumn}
                     </div>
-                    <div style={{ 'flex': '50%' }} className='code-section'>
+                    <div style={{ 'flex': '48%' }} className='code-section'>
                         <div>
                             <Nestable
                                 items={this.state.items}
