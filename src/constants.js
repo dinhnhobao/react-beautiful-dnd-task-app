@@ -181,4 +181,44 @@ const SHORT_TREE = {
         }
     }
 }
-module.exports = { BLOCK, MODEL_BLOCKS, TREE, SHORT_TREE }
+
+const SHORT_PROGRAM = {
+    items: [
+        { id: 0 },
+        { id: 1 },
+        {
+            id: 2, children: [
+                { id: 3 }
+            ]
+        },
+        { id: 4 }
+    ],
+    inputs: {
+        0: {
+            type: 3,
+            input1: "total",
+            input2: "0",
+        },
+        1: {
+            type: 3,
+            input1: "N",
+            input2: "10",
+        },
+        2: {
+            type: 6, // for i in range():
+            input1: "i",
+            input2: "N"
+        },
+        3: {
+            type: 0,
+            input1: "total",
+            input2: "i",
+            operator: "+=",
+        },
+        4: {
+            type: 10,
+            input1: "total"
+        }
+    }
+}
+module.exports = { BLOCK, MODEL_BLOCKS, TREE, SHORT_TREE, SHORT_PROGRAM }

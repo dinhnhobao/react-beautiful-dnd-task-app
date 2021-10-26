@@ -14,7 +14,7 @@ import Save from './images/save.png';
 
 import Highlight from 'react-highlight';
 
-const { MODEL_BLOCKS, TREE, SHORT_TREE } = require('./constants');
+const { MODEL_BLOCKS, TREE, SHORT_TREE, SHORT_PROGRAM } = require('./constants');
 const { parseBlock, parseTree, getFileOutput } = require('./parser');
 
 const generateOptions = (operators, block_id) => {
@@ -40,8 +40,8 @@ export default class Test extends React.Component {
         this.state = {
             // items: TREE.items,
             // inputs: TREE.inputs,
-            items: SHORT_TREE.items,
-            inputs: SHORT_TREE.inputs,
+            items: SHORT_PROGRAM.items,
+            inputs: SHORT_PROGRAM.inputs,
             i: 10000,
             droppableData: '',
             isChildDragging: false,
