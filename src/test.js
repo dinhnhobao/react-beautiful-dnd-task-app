@@ -485,6 +485,8 @@ export default class Test extends React.Component {
             ))}
         </div>
 
+        console.log("items");
+        console.log(this.state.items);
         return (
 
             <div>
