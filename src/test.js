@@ -5,7 +5,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
 import io from 'socket.io-client';
 import Messages from './Messages';
-import MessageInput from './MessageInput';
 // import './syntax-highlighting.css';
 import ReactTooltip from 'react-tooltip';
 import FileSaver from 'file-saver';
@@ -57,6 +56,14 @@ export default class Test extends React.Component {
         this.setState({ socket });
     }
 
+    submitCode = (e) => {
+        e.preventDefault();
+        let messageContent = getFileOutput(parseTree({
+            items: this.state.items,
+            inputs: this.state.inputs
+        }));;
+        this.state.socket.emit('message', messageContent);
+    }
     handleInputChange(event, id, input) {
         const newInputs = JSON.parse(JSON.stringify(this.state.inputs));
         newInputs[id][input] = event.target.value;
@@ -501,7 +508,7 @@ export default class Test extends React.Component {
                 {this.state.socket ? (
                     <div className="chat-container">
                         <Messages socket={this.state.socket} />
-                        <MessageInput socket={this.state.socket} />
+                        <div onClick={(e) => this.submitCode((e))}> Run code </div>
                     </div>
                 ) : (
                     <div>Not Connected</div>
