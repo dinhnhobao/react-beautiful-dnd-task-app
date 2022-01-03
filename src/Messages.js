@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Messages.css';
+import Highlight from 'react-highlight';
 
 function Messages({ socket }) {
     const [messages, setMessages] = useState({});
@@ -37,11 +38,16 @@ function Messages({ socket }) {
                 .sort((a, b) => a.time - b.time)
                 .map((message) => {
                     var rows;
-                    if (message.value.toString().startsWith("Error")) {
-                        rows = <div className="error">{message.value}</div>;
+                    console.log(message.value.hasOwnProperty("traceback"));
+                    // Traceback: error
+                    if (message.value.hasOwnProperty("traceback")) { // startsWith("Error")
+                        rows = <div>
+                            {message.value.traceback}
+                        </div>
                     } else {
                         rows = message.value.split('\n')
                             .map((row, i) =>
+
                                 <div key={i}>
                                     {row}
                                 </div>
@@ -54,7 +60,9 @@ function Messages({ socket }) {
                             title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
                         >
                             <span className="user">{message.user.name}</span>
-                            {rows}
+                            <Highlight language="python">
+                                {rows}
+                            </Highlight>
                             <span className="date">{new Date(message.time).toLocaleTimeString()}</span>
                         </div>
                     )

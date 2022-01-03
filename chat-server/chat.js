@@ -66,8 +66,10 @@ class Connection {
         let outside_this = this;
         PythonShell.run(filePath, null, function (err, results) {
             if (err) {
-                console.log(err);
-                message.value = [err.toString()]; // mutate the message received
+                // console.log("Error in running python script", err, typeof err);
+                // console.log(error.Error);
+                // console.log('Traceback', err.traceback, typeof err.traceback);
+                message.value = err; // mutate the message received
             } else {
                 // results is an array consisting of messages collected during execution
                 console.log('results: %j', results);
