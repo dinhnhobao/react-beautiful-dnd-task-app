@@ -39,6 +39,7 @@ class Connection {
             time: Date.now()
         };
 
+        console.log(`message ${JSON.stringify(message)} received`);
         messages.add(message);
         this.sendMessage(message);
 
