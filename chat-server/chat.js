@@ -1,8 +1,11 @@
 const uuidv4 = require('uuid').v4;
+const fs = require('fs');
+
+const { PythonShell } = require('python-shell');
 
 const messages = new Set();
 const users = new Map();
-
+const { getRandomString } = require('./utils');
 const defaultUser = {
     id: 'anon',
     name: 'Anonymous',
@@ -40,6 +43,37 @@ class Connection {
         };
 
         console.log(`message ${JSON.stringify(message)} received`);
+
+        let messageContent = message.value;
+
+        const FILE_DIRECTORY = './files';
+        if (!fs.existsSync(FILE_DIRECTORY)) { // create directory if not exists
+            fs.mkdirSync(FILE_DIRECTORY);
+            console.log("Created directory to store files");
+        }
+
+        const FILENAME = `${getRandomString()}.py`
+        const filePath = FILE_DIRECTORY + "/" + FILENAME;
+
+        fs.writeFileSync(filePath, messageContent, function (err) {
+            if (err) return console.log('Error in writing file', err);
+            console.log(`File ${FILENAME} has been saved`);
+        });
+
+        PythonShell.run(filePath, null, function (err, results) {
+            if (err) throw err;
+            // results is an array consisting of messages collected during execution
+            console.log('results: %j', results);
+
+            // remove Python file after execution
+            fs.unlink(filePath, (err) => { // asyncronous remove
+                if (err) {
+                    console.error(err);
+                    return
+                }
+            })
+        });
+
         messages.add(message);
         this.sendMessage(message);
 
