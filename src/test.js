@@ -3,6 +3,9 @@ import Nestable from 'react-nestable';
 import 'react-nestable/dist/styles/index.css';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import './app.css';
+import io from 'socket.io-client';
+import Messages from './Messages';
+import MessageInput from './MessageInput';
 // import './syntax-highlighting.css';
 import ReactTooltip from 'react-tooltip';
 import FileSaver from 'file-saver';
@@ -47,6 +50,11 @@ export default class Test extends React.Component {
             isChildDragging: false,
             fileName: 'count',
         };
+    }
+
+    componentDidMount() {
+        const socket = io(`http://${window.location.hostname}:3000`);
+        this.setState({ socket });
     }
 
     handleInputChange(event, id, input) {
@@ -490,6 +498,14 @@ export default class Test extends React.Component {
         return (
 
             <div>
+                {this.state.socket ? (
+                    <div className="chat-container">
+                        <Messages socket={this.state.socket} />
+                        <MessageInput socket={this.state.socket} />
+                    </div>
+                ) : (
+                    <div>Not Connected</div>
+                )}
                 <div style={{ border: '0.35vh groove #00BBFF' }}>
                     {/* <button onClick={this.addBlock(type)}>
                     Click me
