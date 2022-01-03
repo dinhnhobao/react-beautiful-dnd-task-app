@@ -27,7 +27,7 @@ function Messages({ socket }) {
         socket.emit('getMessages');
 
         return () => {
-            socket.off('message', messageListener);
+            socket.off('message', messageListener); // remove the listener 
             socket.off('deleteMessage', deleteMessageListener);
         };
     }, [socket]);
@@ -59,7 +59,7 @@ function Messages({ socket }) {
                             className="message-container"
                             title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
                         >
-                            <span className="user">{message.user.name}</span>
+                            {/* <span className="user">{message.user.name}</span> */}
                             <Highlight language="python">
                                 {rows}
                             </Highlight>
