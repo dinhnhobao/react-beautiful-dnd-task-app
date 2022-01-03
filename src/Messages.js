@@ -36,11 +36,11 @@ function Messages({ socket }) {
             {[...Object.values(messages)]
                 .sort((a, b) => a.time - b.time)
                 .map((message) => {
+                    // console.log(message.value);
                     const rows = message.value.split('\n')
                         .map((row, i) =>
-                            <div>
-                                <div key={i}>{row}haha</div>
-                                <br></br>
+                            <div key={i}>
+                                {row}
                             </div>
                         );
                     return (

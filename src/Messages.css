@@ -5,7 +5,7 @@
 
 .message-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 0.5rem;
     border-bottom: 1px solid #eeeeee;
 }
