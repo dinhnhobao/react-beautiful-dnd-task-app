@@ -505,10 +505,6 @@ export default class Test extends React.Component {
         return (
             <div>
                 <div style={{ border: '0.35vh groove #00BBFF' }}>
-                    {/* <button onClick={this.addBlock(type)}>
-                    Click me
-                </button> */}
-
                     <div className='flex-container'>
                         <div style={{ 'flex': '18%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                             {choosingColumn}
@@ -532,7 +528,7 @@ export default class Test extends React.Component {
                             <div style={{ borderBottom: '1px solid #00BBFF', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                                 <div onClick={(e) => this.submitCode((e))}> Run code </div>
                             </div>
-                            <div style={{ flex: '20%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
+                            <div style={{ padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                                 <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
                                 <div style={{ paddingTop: '5vh', paddingLeft: '5vh' }}>
                                     <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>
@@ -542,15 +538,17 @@ export default class Test extends React.Component {
                                         <div style={{ fontSize: '2vh', display: 'inline-block' }}>.py</div>
                                     </div>
                                 </div>
-                                {this.state.socket ? (
-                                    <div>
+                                <div>
+                                    {this.state.socket ? (
                                         <div>
-                                            <Messages socket={this.state.socket} />
+                                            <div>
+                                                <Messages socket={this.state.socket} />
+                                            </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    <div>Not Connected</div>
-                                )}
+                                    ) : (
+                                        <div>Not connected to server</div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
