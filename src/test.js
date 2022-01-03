@@ -503,16 +503,7 @@ export default class Test extends React.Component {
         console.log("items");
         console.log(this.state.items);
         return (
-
             <div>
-                {this.state.socket ? (
-                    <div className="chat-container">
-                        <Messages socket={this.state.socket} />
-                        <div onClick={(e) => this.submitCode((e))}> Run code </div>
-                    </div>
-                ) : (
-                    <div>Not Connected</div>
-                )}
                 <div style={{ border: '0.35vh groove #00BBFF' }}>
                     {/* <button onClick={this.addBlock(type)}>
                     Click me
@@ -538,7 +529,21 @@ export default class Test extends React.Component {
                                     {code}
                                 </div>
                             </div>
-                            <div style={{ flex: '50%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
+                            <div style={{ flex: '30%', padding: '0.5vh 0.5vw 0.5vh 0.5vw', borderBottom: '1px solid #00BBFF', overflowY: 'auto' }} className="vertical-code-container">
+                                <div>
+                                    {this.state.socket ? (
+                                        <div>
+                                            <div onClick={(e) => this.submitCode((e))}> Run code </div>
+                                            <div>
+                                                <Messages socket={this.state.socket} />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div>Not Connected</div>
+                                    )}
+                                </div>
+                            </div>
+                            <div style={{ flex: '20%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                                 <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
                                 <div style={{ paddingTop: '5vh', paddingLeft: '5vh' }}>
                                     <img src={Save} width={15} height={15} onClick={(e) => this.onSaveFile(e)} data-tip="Save code as .py file"></img>

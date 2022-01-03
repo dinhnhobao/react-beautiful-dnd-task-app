@@ -33,18 +33,14 @@ function Messages({ socket }) {
     }, [socket]);
 
     return (
-        <div className="message-list">
+        <div>
             {[...Object.values(messages)]
                 .sort((a, b) => a.time - b.time)
                 .map((message) => {
                     var rows;
                     console.log(message.value.hasOwnProperty("traceback"));
-                    // Traceback: error
-                    if (message.value.hasOwnProperty("traceback")) { // startsWith("Error")
-                        rows = <div>
-                            {message.value.traceback}
-                        </div>
-                    } else {
+
+                    try {
                         rows = message.value.split('\n')
                             .map((row, i) =>
 
@@ -52,6 +48,10 @@ function Messages({ socket }) {
                                     {row}
                                 </div>
                             );
+                    } catch (error) {
+                        rows = <div>
+                            {message.value.traceback}
+                        </div>
                     }
                     return (
                         <div
