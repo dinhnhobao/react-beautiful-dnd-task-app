@@ -36,13 +36,17 @@ function Messages({ socket }) {
             {[...Object.values(messages)]
                 .sort((a, b) => a.time - b.time)
                 .map((message) => {
-                    // console.log(message.value);
-                    const rows = message.value.split('\n')
-                        .map((row, i) =>
-                            <div key={i}>
-                                {row}
-                            </div>
-                        );
+                    var rows;
+                    if (message.value.toString().startsWith("Error")) {
+                        rows = <div className="error">{message.value}</div>;
+                    } else {
+                        rows = message.value.split('\n')
+                            .map((row, i) =>
+                                <div key={i}>
+                                    {row}
+                                </div>
+                            );
+                    }
                     return (
                         <div
                             key={message.id}
