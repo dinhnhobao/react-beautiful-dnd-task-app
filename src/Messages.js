@@ -66,7 +66,7 @@ function Messages({ socket }) {
                             <span className="date">{new Date(message.time).toLocaleTimeString()}</span>
                         </div>
                     )
-                })
+                }).at(-1)
             }
         </div>
     );
