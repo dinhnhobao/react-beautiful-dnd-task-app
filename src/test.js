@@ -529,19 +529,8 @@ export default class Test extends React.Component {
                                     {code}
                                 </div>
                             </div>
-                            <div style={{ flex: '30%', padding: '0.5vh 0.5vw 0.5vh 0.5vw', borderBottom: '1px solid #00BBFF', overflowY: 'auto' }} className="vertical-code-container">
-                                <div>
-                                    {this.state.socket ? (
-                                        <div>
-                                            <div onClick={(e) => this.submitCode((e))}> Run code </div>
-                                            <div>
-                                                <Messages socket={this.state.socket} />
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div>Not Connected</div>
-                                    )}
-                                </div>
+                            <div style={{ borderBottom: '1px solid #00BBFF', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
+                                <div onClick={(e) => this.submitCode((e))}> Run code </div>
                             </div>
                             <div style={{ flex: '20%', padding: '0.5vh 0.5vw 0.5vh 0.5vw' }}>
                                 <ReactTooltip type="info" delayShow={200} className="tooltip-customized" />
@@ -553,11 +542,20 @@ export default class Test extends React.Component {
                                         <div style={{ fontSize: '2vh', display: 'inline-block' }}>.py</div>
                                     </div>
                                 </div>
+                                {this.state.socket ? (
+                                    <div>
+                                        <div>
+                                            <Messages socket={this.state.socket} />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div>Not Connected</div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div >
-            </div>
+            </div >
         );
     }
 }
