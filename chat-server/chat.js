@@ -46,6 +46,7 @@ class Connection {
 
         let messageContent = message.value;
 
+        // messageContent = `print(i)`; // for error handling
         const FILE_DIRECTORY = './files';
         if (!fs.existsSync(FILE_DIRECTORY)) { // create directory if not exists
             fs.mkdirSync(FILE_DIRECTORY);
@@ -60,11 +61,22 @@ class Connection {
             console.log(`File ${FILENAME} has been saved`);
         });
 
-        PythonShell.run(filePath, null, function (err, results) {
-            if (err) throw err;
-            // results is an array consisting of messages collected during execution
-            console.log('results: %j', results);
+        let result = null;
 
+        let outside_this = this;
+        PythonShell.run(filePath, null, function (err, results) {
+            if (err) {
+                console.log(err);
+                message.value = [err.toString()]; // mutate the message received
+            } else {
+                // results is an array consisting of messages collected during execution
+                console.log('results: %j', results);
+                message.value = results.join('\n');
+            }
+            console.log(`Adding ${JSON.stringify(message)} to messages`);
+
+            messages.add(message);
+            outside_this.sendMessage(message);
             // remove Python file after execution
             fs.unlink(filePath, (err) => { // asyncronous remove
                 if (err) {
@@ -73,9 +85,6 @@ class Connection {
                 }
             })
         });
-
-        messages.add(message);
-        this.sendMessage(message);
 
         setTimeout(
             () => {

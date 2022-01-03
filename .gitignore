@@ -22,3 +22,5 @@ yarn-error.log*
 
 *.txt
 ./src/files
+
+chat-server/files
