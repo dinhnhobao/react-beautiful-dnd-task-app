@@ -53,6 +53,8 @@ export default class Test extends React.Component {
 
     componentDidMount() {
         const socket = io(`http://${window.location.hostname}:3000`);
+        console.log(window.location.hostname);
+        // const socket = io(`https://little-monkey-35.loca.lt/`);
         this.setState({ socket });
     }
 
